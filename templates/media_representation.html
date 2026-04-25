@@ -4,4 +4,11 @@
 
 {% block content %}
 <h1>Media Representation</h1>
+
+Number of times article mentioned by state 
+<iframe src="{{ url_for('static', filename='state_heatmap.html') }}" width="100%" height="500px" frameborder="0"></iframe>
+Raw location data on where articles have mentioned people
+<iframe src="{{ url_for('static', filename='raw_location_map.html') }}" width="100%" height="500px" frameborder="0"></iframe>
+
+
 {% endblock %}
