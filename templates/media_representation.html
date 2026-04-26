@@ -3,24 +3,122 @@
 {% block title %}Media Representation{% endblock %}
 
 {% block content %}
+<style>
+    .filter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        align-items: flex-end;
+        padding: 1.5rem;
+        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        margin-bottom: 2.5rem;
+    }
+
+    .filter-form label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        font-family: Georgia, serif;
+        font-size: 0.85rem;
+        color: #555;
+        letter-spacing: 0.03em;
+    }
+
+    .filter-form select,
+    .filter-form input[type="date"] {
+        font-family: Georgia, serif;
+        font-size: 0.95rem;
+        color: #1a1a1a;
+        background: #f9f9f9;
+        border: 1px solid #e0e0e0;
+        padding: 0.4rem 0.6rem;
+        outline: none;
+    }
+
+    .filter-form select:focus,
+    .filter-form input[type="date"]:focus {
+        border-color: #aaa;
+    }
+
+    .filter-form button {
+        font-family: Georgia, serif;
+        font-size: 0.95rem;
+        color: #f9f9f9;
+        background: #1a1a1a;
+        border: none;
+        padding: 0.45rem 1.25rem;
+        cursor: pointer;
+        letter-spacing: 0.03em;
+    }
+
+    .filter-form button:hover {
+        background: #444;
+    }
+
+    .plots-section {
+        margin: 0 calc(-50vw + 50%);
+        padding: 0 2rem;
+    }
+
+    .plots-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .plot-block h2 {
+        font-size: 1rem;
+        font-weight: normal;
+        color: #555;
+        letter-spacing: 0.03em;
+        margin-bottom: 0.75rem;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 0.4rem;
+    }
+
+    .plot-block .map-wrap {
+        height: 420px;
+        overflow: hidden;
+        border: 1px solid #e0e0e0;
+    }
+
+    .plot-block .map-wrap > div,
+    .plot-block .map-wrap iframe {
+        width: 100% !important;
+        height: 100% !important;
+    }
+</style>
+
 <h1>Media Representation</h1>
 
-<form method="POST">
-    <label>Dataset:
+<form class="filter-form" method="POST">
+    <label>Dataset
         <select name="dataset">
             {% for key, label in dataset_options.items() %}
             <option value="{{ key }}" {% if key == selected_dataset %}selected{% endif %}>{{ label }}</option>
             {% endfor %}
         </select>
     </label>
-    <label>From: <input type="date" name="start_date" value="{{ start_date }}"></label>
-    <label>To: <input type="date" name="end_date" value="{{ end_date }}"></label>
+    <label>From
+        <input type="date" name="start_date" value="{{ start_date }}" min="{{ min_date }}" max="{{ max_date }}">
+    </label>
+    <label>To
+        <input type="date" name="end_date" value="{{ end_date }}" min="{{ min_date }}" max="{{ max_date }}">
+    </label>
     <button type="submit">Update</button>
 </form>
 
-<h2>Number of times articles mentioned by state</h2>
-{{ choropleth|safe }}
-
-<h2>Raw location data on where articles have mentioned people</h2>
-{{ heatmap|safe }}
+<div class="plots-section">
+    <div class="plots-grid">
+        <div class="plot-block">
+            <h2>Article mentions by state</h2>
+            <div class="map-wrap">{{ choropleth|safe }}</div>
+        </div>
+        <div class="plot-block">
+            <h2>Location heatmap</h2>
+            <div class="map-wrap">{{ heatmap|safe }}</div>
+        </div>
+    </div>
+</div>
 {% endblock %}

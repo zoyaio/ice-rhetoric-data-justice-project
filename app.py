@@ -54,6 +54,10 @@ def media_representation():
     choropleth_html, heatmap_html = build_plots(df)
     dataset_options = {k: v["label"] for k, v in DATASETS.items()}
 
+    full_df = data[dataset_key]
+    min_date = full_df["DATE"].min().strftime("%Y-%m-%d")
+    max_date = full_df["DATE"].max().strftime("%Y-%m-%d")
+
     return render_template(
         'media_representation.html',
         choropleth=choropleth_html,
@@ -62,6 +66,8 @@ def media_representation():
         selected_dataset=dataset_key,
         start_date=start_date_str,
         end_date=end_date_str,
+        min_date=min_date,
+        max_date=max_date,
     )
 
 @app.route('/media-desensitization')
