@@ -1,15 +1,68 @@
-from flask import Flask, render_template
-from data import load_data
+import pandas as pd
+import folium
+from folium.plugins import HeatMap
+import plotly.express as px
+from flask import Flask, render_template, request
+from data import load_data, DATASETS
 
 app = Flask(__name__)
+data = load_data()
+
+def build_plots(df: pd.DataFrame):
+    state_counts = (
+        df.groupby("adm1_code")
+        .size()
+        .reset_index(name="count")
+    )
+    state_counts["state_code"] = state_counts["adm1_code"].str[2:]
+    choropleth_fig = px.choropleth(
+        state_counts,
+        locations="state_code",
+        locationmode="USA-states",
+        scope="usa",
+        color="count",
+        color_continuous_scale="Viridis_r",
+        labels={"count": "Article Mentions"},
+    )
+    choropleth_html = choropleth_fig.to_html(full_html=False, include_plotlyjs="cdn")
+
+    state_coords = df[df["location_type"] == 2][["lat", "lon"]].values.tolist()
+    city_coords  = df[df["location_type"] == 3][["lat", "lon"]].values.tolist()
+    m = folium.Map(location=[39.5, -98.5], zoom_start=4, tiles="CartoDB positron")
+    HeatMap(state_coords, radius=15, blur=10).add_to(m)
+    HeatMap(city_coords,  radius=6,  blur=8).add_to(m)
+    heatmap_html = m._repr_html_()
+
+    return choropleth_html, heatmap_html
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/media-representation')
+@app.route('/media-representation', methods=['GET', 'POST'])
 def media_representation():
-    return render_template('media_representation.html')
+    dataset_key    = request.form.get('dataset', 'dhs_migration')
+    start_date_str = request.form.get('start_date', '')
+    end_date_str   = request.form.get('end_date', '')
+
+    df = data[dataset_key].copy()
+    if start_date_str:
+        df = df[df["DATE"] >= pd.Timestamp(start_date_str)]
+    if end_date_str:
+        df = df[df["DATE"] <= pd.Timestamp(end_date_str)]
+
+    choropleth_html, heatmap_html = build_plots(df)
+    dataset_options = {k: v["label"] for k, v in DATASETS.items()}
+
+    return render_template(
+        'media_representation.html',
+        choropleth=choropleth_html,
+        heatmap=heatmap_html,
+        dataset_options=dataset_options,
+        selected_dataset=dataset_key,
+        start_date=start_date_str,
+        end_date=end_date_str,
+    )
 
 @app.route('/media-desensitization')
 def media_desensitization():
