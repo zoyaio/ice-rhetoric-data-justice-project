@@ -3,10 +3,29 @@ import folium
 from folium.plugins import HeatMap
 import plotly.express as px
 from flask import Flask, render_template, request
-from data import load_data, DATASETS
+from data import load_data, load_arrests, DATASETS
 
 app = Flask(__name__)
 data = load_data()
+arrests = load_arrests()
+
+def build_arrests_choropleth(start_date_str: str, end_date_str: str) -> str:
+    df = arrests.copy()
+    if start_date_str:
+        df = df[df["date"] >= pd.Timestamp(start_date_str)]
+    if end_date_str:
+        df = df[df["date"] <= pd.Timestamp(end_date_str)]
+    state_counts = df.groupby("state_code").size().reset_index(name="count")
+    fig = px.choropleth(
+        state_counts,
+        locations="state_code",
+        locationmode="USA-states",
+        scope="usa",
+        color="count",
+        color_continuous_scale="Viridis_r",
+        labels={"count": "Arrests"},
+    )
+    return fig.to_html(full_html=False, include_plotlyjs=False)
 
 def build_plots(df: pd.DataFrame):
     state_counts = (
@@ -52,16 +71,18 @@ def media_representation():
         df = df[df["DATE"] <= pd.Timestamp(end_date_str)]
 
     choropleth_html, heatmap_html = build_plots(df)
+    arrests_choropleth_html = build_arrests_choropleth(start_date_str, end_date_str)
     dataset_options = {k: v["label"] for k, v in DATASETS.items()}
 
     full_df = data[dataset_key]
-    min_date = full_df["DATE"].min().strftime("%Y-%m-%d")
-    max_date = full_df["DATE"].max().strftime("%Y-%m-%d")
+    min_date = min(full_df["DATE"].min(), arrests["date"].min()).strftime("%Y-%m-%d")
+    max_date = max(full_df["DATE"].max(), arrests["date"].max()).strftime("%Y-%m-%d")
 
     return render_template(
         'media_representation.html',
         choropleth=choropleth_html,
         heatmap=heatmap_html,
+        arrests_choropleth=arrests_choropleth_html,
         dataset_options=dataset_options,
         selected_dataset=dataset_key,
         start_date=start_date_str,

@@ -16,9 +16,14 @@ DATASETS = {
     },
 }
 
+ARRESTS_PATH = "data_processing/data/processed/ice_arrests.csv"
+
 def load_data() -> dict:
     loaded = {}
     for key, meta in DATASETS.items():
         df = pd.read_csv(Path(meta["path"]), parse_dates=["DATE"])
         loaded[key] = df
     return loaded
+
+def load_arrests() -> pd.DataFrame:
+    return pd.read_csv(Path(ARRESTS_PATH), parse_dates=["date"])
