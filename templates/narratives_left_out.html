@@ -17,27 +17,49 @@
         height: 100% !important;
     }
 
-    .state-section {
+    .city-section {
         margin-top: 3rem;
         padding-top: 1rem;
         border-top: 1px solid #e0e0e0;
     }
 
-    .state-section h2 {
+    .city-section h2 {
         font-family: Georgia, serif;
         font-size: 1.4rem;
         font-weight: normal;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
     }
 
-    .state-section p {
+    .org-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+        padding-bottom: 2.5rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .org-quote {
         font-family: Georgia, serif;
-        color: #555;
+        font-size: 1rem;
+        color: #333;
+        line-height: 1.7;
+        font-style: italic;
+    }
+
+    .org-quote::before { content: '\201C'; }
+    .org-quote::after  { content: '\201D'; }
+
+    .org-embed {
+        display: flex;
+        justify-content: center;
     }
 </style>
 
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0"></script>
+
 <h1>Narratives Left Out</h1>
-<p style="font-family: Georgia, serif; color: #555; margin-bottom: 1.5rem;">Click a state to jump to its section.</p>
+<p style="font-family: Georgia, serif; color: #555; margin-bottom: 1.5rem;">Click a city to jump to its section.</p>
 
 <div class="map-wrap">{{ choropleth|safe }}</div>
 
@@ -60,23 +82,18 @@
   }
 </script>
 
-<div class="state-section" id="section-new-york-city">
-    <h2>New York City</h2>
-    <p>[New York City content goes here]</p>
+{% for city, orgs in narratives.items() %}
+<div class="city-section" id="section-{{ city | lower | replace(' ', '-') }}">
+    <h2>{{ city }}</h2>
+    {% for org in orgs %}
+    <div class="org-row">
+        <div class="org-quote">{{ org.quote }}</div>
+        <div class="org-embed">
+            <div class="fb-post" data-href="{{ org.url }}" data-width="500"></div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
+{% endfor %}
 
-<div class="state-section" id="section-los-angeles">
-    <h2>Los Angeles</h2>
-    <p>[Los Angeles content goes here]</p>
-</div>
-
-<div class="state-section" id="section-long-beach">
-    <h2>Long Beach</h2>
-    <p>[Long Beach content goes here]</p>
-</div>
-
-<div class="state-section" id="section-sacramento">
-    <h2>Sacramento</h2>
-    <p>[Sacramento content goes here]</p>
-</div>
 {% endblock %}

@@ -4,11 +4,12 @@ from folium.plugins import HeatMap
 import plotly.express as px
 import plotly.graph_objects as go
 from flask import Flask, render_template, request
-from data import load_data, load_arrests, DATASETS
+from data import load_data, load_arrests, load_narratives, DATASETS
 
 app = Flask(__name__)
 data = load_data()
 arrests = load_arrests()
+narratives = load_narratives()
 
 def build_arrests_choropleth(start_date_str: str, end_date_str: str) -> str:
     df = arrests.copy()
@@ -135,7 +136,7 @@ def narratives_left_out():
         showlegend=False,
     ))
     choropleth_html = fig.to_html(full_html=False, include_plotlyjs="cdn", div_id="narratives-choropleth")
-    return render_template('narratives_left_out.html', choropleth=choropleth_html)
+    return render_template('narratives_left_out.html', choropleth=choropleth_html, narratives=narratives)
 
 if __name__ == '__main__':
     app.run(debug=True)
