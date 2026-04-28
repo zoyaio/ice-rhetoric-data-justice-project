@@ -3,5 +3,80 @@
 {% block title %}Narratives Left Out{% endblock %}
 
 {% block content %}
+<style>
+    .map-wrap {
+        height: 420px;
+        overflow: hidden;
+        border: 1px solid #e0e0e0;
+        margin-bottom: 3rem;
+    }
+
+    .map-wrap > div,
+    .map-wrap iframe {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .state-section {
+        margin-top: 3rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .state-section h2 {
+        font-family: Georgia, serif;
+        font-size: 1.4rem;
+        font-weight: normal;
+        margin-bottom: 1rem;
+    }
+
+    .state-section p {
+        font-family: Georgia, serif;
+        color: #555;
+    }
+</style>
+
 <h1>Narratives Left Out</h1>
+<p style="font-family: Georgia, serif; color: #555; margin-bottom: 1.5rem;">Click a state to jump to its section.</p>
+
+<div class="map-wrap">{{ choropleth|safe }}</div>
+
+<script>
+  var cityToSection = {
+    'New York City': 'section-new-york-city',
+    'Long Beach':    'section-long-beach',
+    'Sacramento':    'section-sacramento',
+    'Los Angeles':   'section-los-angeles',
+  };
+  var choroplethDiv = document.getElementById('narratives-choropleth');
+  if (choroplethDiv) {
+    choroplethDiv.on('plotly_click', function(data) {
+      var pt = data.points[0];
+      var sectionId = pt.customdata ? cityToSection[pt.customdata] : null;
+      if (sectionId) {
+        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+</script>
+
+<div class="state-section" id="section-new-york-city">
+    <h2>New York City</h2>
+    <p>[New York City content goes here]</p>
+</div>
+
+<div class="state-section" id="section-los-angeles">
+    <h2>Los Angeles</h2>
+    <p>[Los Angeles content goes here]</p>
+</div>
+
+<div class="state-section" id="section-long-beach">
+    <h2>Long Beach</h2>
+    <p>[Long Beach content goes here]</p>
+</div>
+
+<div class="state-section" id="section-sacramento">
+    <h2>Sacramento</h2>
+    <p>[Sacramento content goes here]</p>
+</div>
 {% endblock %}

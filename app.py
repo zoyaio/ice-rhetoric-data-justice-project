@@ -2,6 +2,7 @@ import pandas as pd
 import folium
 from folium.plugins import HeatMap
 import plotly.express as px
+import plotly.graph_objects as go
 from flask import Flask, render_template, request
 from data import load_data, load_arrests, DATASETS
 
@@ -43,7 +44,7 @@ def build_plots(df: pd.DataFrame):
         color_continuous_scale="Viridis_r",
         labels={"count": "Article Mentions"},
     )
-    choropleth_html = choropleth_fig.to_html(full_html=False, include_plotlyjs="cdn")
+    choropleth_html = choropleth_fig.to_html(full_html=False, include_plotlyjs="cdn", div_id="articles-choropleth")
 
     state_coords = df[df["location_type"] == 2][["lat", "lon"]].values.tolist()
     city_coords  = df[df["location_type"] == 3][["lat", "lon"]].values.tolist()
@@ -97,7 +98,44 @@ def media_desensitization():
 
 @app.route('/narratives-left-out')
 def narratives_left_out():
-    return render_template('narratives_left_out.html')
+    full_df = data['dhs_migration']
+    state_counts = (
+        full_df.groupby("adm1_code")
+        .size()
+        .reset_index(name="count")
+    )
+    state_counts["state_code"] = state_counts["adm1_code"].str[2:]
+    fig = px.choropleth(
+        state_counts,
+        locations="state_code",
+        locationmode="USA-states",
+        scope="usa",
+        color="count",
+        color_continuous_scale="Viridis_r",
+        labels={"count": "Article Mentions"},
+    )
+    cities = {
+        'New York City': (40.7128, -74.0060),
+        'Long Beach':    (33.7701, -118.1937),
+        'Sacramento':    (38.5816, -121.4944),
+        'Los Angeles':   (34.0522, -118.2437),
+    }
+    fig.add_trace(go.Scattergeo(
+        lat=[c[0] for c in cities.values()],
+        lon=[c[1] for c in cities.values()],
+        text=list(cities.keys()),
+        customdata=list(cities.keys()),
+        mode='markers',
+        marker=dict(
+            size=10,
+            color='rgba(0,0,0,0)',
+            line=dict(color='#0055FF', width=2),
+        ),
+        hovertemplate='%{customdata} — click to explore<extra></extra>',
+        showlegend=False,
+    ))
+    choropleth_html = fig.to_html(full_html=False, include_plotlyjs="cdn", div_id="narratives-choropleth")
+    return render_template('narratives_left_out.html', choropleth=choropleth_html)
 
 if __name__ == '__main__':
     app.run(debug=True)
