@@ -7,3 +7,5 @@ plotly
 folium
 nbformat
 pyarrow
+geopy
+tqdm
