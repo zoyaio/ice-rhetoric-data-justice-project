@@ -82,6 +82,17 @@
         background: none;
     }
 
+    /* Org title */
+    .org-title-header {
+        font-family: Georgia, serif;
+        font-size: 1rem;
+        font-weight: normal;
+        font-style: italic;
+        color: #888;
+        margin-bottom: 0.6rem;
+        margin-top: 2rem;
+    }
+
     /* Collage */
     .org-collage {
         display: grid;
@@ -174,6 +185,7 @@
 <div class="city-section" id="section-{{ city | lower | replace(' ', '-') }}">
     <h2>{{ city }}</h2>
     {% for org in orgs %}
+    <h3 class="org-title-header">{{ org.title }}</h3>
     <div class="org-card" onclick="flipCard(this)">
         <div class="org-card-front">
             <div class="org-collage">
@@ -198,7 +210,9 @@
             <span class="flip-hint">click to read →</span>
         </div>
         <div class="org-card-back">
-            <div class="org-quote">{{ org.quote }}</div>
+            <div>
+                <div class="org-quote">{{ org.quote }}</div>
+            </div>
             <span class="flip-hint">click to go back</span>
         </div>
     </div>

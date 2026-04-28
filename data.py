@@ -36,6 +36,10 @@ def load_narratives() -> dict:
     posts      = pd.read_csv(Path(FACEBOOK_PATH))
     more_imgs  = pd.read_csv(Path(MORE_IMAGES_PATH))
 
+    quotes = quotes.dropna(subset=["org_num"])
+    posts  = posts.dropna(subset=["org_num"])
+    quotes["org_num"] = quotes["org_num"].astype(int)
+    posts["org_num"]  = posts["org_num"].astype(int)
     merged = quotes.merge(posts, on=["city", "org_num"], how="outer")
     merged["city"]     = merged["city"].replace("New York", "New York City")
     more_imgs["city"]  = more_imgs["city"].replace("New York", "New York City")
