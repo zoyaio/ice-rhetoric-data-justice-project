@@ -48,7 +48,7 @@ def build_arrests_choropleth(start_date_str: str, end_date_str: str) -> str:
         locationmode="USA-states",
         scope="usa",
         color="count",
-        color_continuous_scale="Viridis_r",
+        color_continuous_scale="Reds",
         labels={"count": "Arrests"},
     )
     return fig.to_html(full_html=False, include_plotlyjs=False)
@@ -66,7 +66,7 @@ def build_choropleth(df: pd.DataFrame) -> str:
         locationmode="USA-states",
         scope="usa",
         color="count",
-        color_continuous_scale="Viridis_r",
+        color_continuous_scale="Reds",
         labels={"count": "Article Mentions"},
     )
     return fig.to_html(full_html=False, include_plotlyjs="cdn", div_id="articles-choropleth")
@@ -144,7 +144,7 @@ def narratives_left_out():
         locationmode="USA-states",
         scope="usa",
         color="count",
-        color_continuous_scale="Viridis_r",
+        color_continuous_scale="Reds",
         labels={"count": "Article Mentions"},
     )
     cities = {
@@ -163,7 +163,7 @@ def narratives_left_out():
         marker=dict(
             size=10,
             color='rgba(0,0,0,0)',
-            line=dict(color='#0055FF', width=2),
+            line=dict(color='#2a9d2a', width=2),
         ),
         hovertemplate='%{customdata} — click to explore<extra></extra>',
         showlegend=False,
