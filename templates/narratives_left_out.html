@@ -69,7 +69,14 @@
     'Long Beach':    'section-long-beach',
     'Sacramento':    'section-sacramento',
     'Los Angeles':   'section-los-angeles',
+    'Fresno':        'section-fresno',
   };
+  window.addEventListener('load', function() {
+    if (window.location.hash) {
+      var el = document.getElementById(window.location.hash.slice(1));
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
   var choroplethDiv = document.getElementById('narratives-choropleth');
   if (choroplethDiv) {
     choroplethDiv.on('plotly_click', function(data) {
