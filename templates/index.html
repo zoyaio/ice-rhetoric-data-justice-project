@@ -2,6 +2,100 @@
 
 {% block title %}Home{% endblock %}
 
+{% block hero %}
+<style>
+    .hero {
+        position: relative;
+        height: 92vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-bg {
+        position: absolute;
+        inset: -10px;
+        background-image: url("{{ url_for('static', filename='images/front_page_resilience.png') }}");
+        background-size: cover;
+        background-position: center;
+        filter: blur(5px);
+    }
+
+    /* dark overlay so text stays readable */
+    .hero-bg::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 0 2rem;
+    }
+
+    .hero-title {
+        font-family: Georgia, serif;
+        font-size: clamp(1.6rem, 4vw, 3rem);
+        font-weight: normal;
+        color: #ffffff;
+        letter-spacing: 0.04em;
+        line-height: 1.4;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+    .hero-scroll-hint {
+        margin-top: 2.5rem;
+        font-family: Georgia, serif;
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content" id="hero-content">
+        <h1 class="hero-title">Rhetorical Dehumanization of ICE Attacks</h1>
+        <p class="hero-scroll-hint">scroll to learn more</p>
+    </div>
+</div>
+
+<script>
+    (function() {
+        var hero = document.getElementById('hero');
+        var content = document.getElementById('hero-content');
+        function onScroll() {
+            var scrolled = window.scrollY;
+            var heroH   = hero.offsetHeight;
+            var progress = Math.min(scrolled / (heroH * 0.6), 1);
+            var opacity  = 1 - progress;
+            content.style.opacity = opacity;
+            content.style.transform = 'translateY(' + (scrolled * 0.25) + 'px)';
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+</script>
+{% endblock %}
+
 {% block content %}
-<h1>Home</h1>
+<style>
+    /* remove the default top margin on the home body so it flows below the hero */
+    body > main {
+        margin-top: 4rem;
+    }
+</style>
+
+<section class="home-intro" style="font-family: Georgia, serif; color: #555; font-size: 1.05rem; line-height: 1.9; max-width: 720px; margin: 0 auto; text-align: center;">
+    <p>Rhetoric in the media is a powerful tool that is currently being used as an apparatus for violence and subordination; making a spectacle of their damages, stripping these communities of their dignity and personhood. The injustice is the feeling of hopelessness and inevitability that has been used historically to put Latine and immigrant communities into positions of vulnerability and instability, positions of limbo not only for those who are undocumented but also for those who see themselves as possible victims of this violence and who are then constantly looking over their shoulders with chronic anxiety.</p>
+    <p>An injustice is being done to Latine and immigrant communities by the media with their selection of whose stories to tell and what features of their stories are most impactful. We will be analyzing the way that media focuses its reporting of ICE activity only in certain regions, which are not representative of broader trends across the U.S., and that when it tells these stories of ICE interference, it focuses on the violence enacted to these communities, and leaves out stories of their resilience, hope, and power.</p>
+    <p><em>Guiding Question: What does it mean when the media chooses to tell stories of damage but not of resilience, does that choice serve the public, or does it serve a system that benefits from keeping Latine and immigrant communities feeling powerless?</em></p>
+</section>
 {% endblock %}

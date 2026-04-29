@@ -10,9 +10,11 @@
     <nav>
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('media_representation') }}">Media Representation</a>
-        <a href="{{ url_for('media_desensitization') }}">Media Desensitization</a>
+        <a href="{{ url_for('media_desensitization') }}">Media Focus</a>
         <a href="{{ url_for('narratives_left_out') }}">Narratives Left Out</a>
     </nav>
+
+    {% block hero %}{% endblock %}
 
     <main>
         {% block content %}{% endblock %}

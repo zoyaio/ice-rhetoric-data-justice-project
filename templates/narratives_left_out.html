@@ -17,27 +17,130 @@
         height: 100% !important;
     }
 
-    .state-section {
+    .city-section {
         margin-top: 3rem;
         padding-top: 1rem;
         border-top: 1px solid #e0e0e0;
     }
 
-    .state-section h2 {
+    .city-section h2 {
         font-family: Georgia, serif;
         font-size: 1.4rem;
         font-weight: normal;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
     }
 
-    .state-section p {
-        font-family: Georgia, serif;
-        color: #555;
+    /* Card */
+    .org-card {
+        margin-bottom: 2.5rem;
+        border: 1px solid #e0e0e0;
+        cursor: pointer;
+        transition: transform 0.25s ease;
+        transform-origin: center;
+        position: relative;
     }
+
+    .org-card:hover .org-card-front {
+        opacity: 0.92;
+    }
+
+    .org-card-front,
+    .org-card-back {
+        width: 100%;
+    }
+
+    .org-card-back {
+        display: none;
+        padding: 2.5rem;
+        background: #fff;
+        min-height: 260px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .org-card.flipped .org-card-front { display: none; }
+    .org-card.flipped .org-card-back  { display: flex; }
+
+    .org-card.folding { transform: scaleX(0); }
+
+    /* Flip hint */
+    .flip-hint {
+        position: absolute;
+        bottom: 0.6rem;
+        right: 0.75rem;
+        font-family: Georgia, serif;
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.85);
+        background: rgba(0,0,0,0.35);
+        padding: 0.2rem 0.5rem;
+        pointer-events: none;
+        z-index: 10;
+    }
+
+    .org-card.flipped .flip-hint {
+        color: #aaa;
+        background: none;
+    }
+
+    /* Org title */
+    .org-title-header {
+        font-family: Georgia, serif;
+        font-size: 1rem;
+        font-weight: normal;
+        font-style: italic;
+        color: #888;
+        margin-bottom: 0.6rem;
+        margin-top: 2rem;
+    }
+
+    /* Collage */
+    .org-collage {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 0.75rem;
+        padding: 0.75rem;
+        background: #f9f9f9;
+    }
+
+    .org-collage-tile {
+        height: 220px;
+        overflow: hidden;
+        background: #eee;
+    }
+
+    .org-collage-tile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .org-collage-tile .fb-post {
+        transform: scale(0.75);
+        transform-origin: top left;
+        width: 133%;
+    }
+
+    /* Quote back */
+    .org-quote {
+        font-family: Georgia, serif;
+        font-size: 1.05rem;
+        color: #333;
+        line-height: 1.8;
+        font-style: italic;
+        max-width: 680px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .org-quote::before { content: '\201C'; }
+    .org-quote::after  { content: '\201D'; }
 </style>
 
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0"></script>
+
 <h1>Narratives Left Out</h1>
-<p style="font-family: Georgia, serif; color: #555; margin-bottom: 1.5rem;">Click a state to jump to its section.</p>
+<p style="font-family: Georgia, serif; color: #555; margin-bottom: 1.5rem;">Click a city to jump to its section.</p>
 
 <div class="map-wrap">{{ choropleth|safe }}</div>
 
@@ -47,7 +150,16 @@
     'Long Beach':    'section-long-beach',
     'Sacramento':    'section-sacramento',
     'Los Angeles':   'section-los-angeles',
+    'Fresno':        'section-fresno',
   };
+
+  window.addEventListener('load', function() {
+    if (window.location.hash) {
+      var el = document.getElementById(window.location.hash.slice(1));
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
   var choroplethDiv = document.getElementById('narratives-choropleth');
   if (choroplethDiv) {
     choroplethDiv.on('plotly_click', function(data) {
@@ -58,25 +170,54 @@
       }
     });
   }
+
+  function flipCard(card) {
+    if (card.classList.contains('folding')) return;
+    card.classList.add('folding');
+    setTimeout(function() {
+      card.classList.toggle('flipped');
+      card.classList.remove('folding');
+    }, 250);
+  }
 </script>
 
-<div class="state-section" id="section-new-york-city">
-    <h2>New York City</h2>
-    <p>[New York City content goes here]</p>
+{% for city, orgs in narratives.items() %}
+<div class="city-section" id="section-{{ city | lower | replace(' ', '-') }}">
+    <h2>{{ city }}</h2>
+    {% for org in orgs %}
+    <h3 class="org-title-header">{{ org.title }}</h3>
+    <div class="org-card" onclick="flipCard(this)">
+        <div class="org-card-front">
+            <div class="org-collage">
+                {% if org.extra_images %}
+                    <div class="org-collage-tile">
+                        <img src="{{ org.extra_images[0] }}" alt="">
+                    </div>
+                    <div class="org-collage-tile">
+                        <div class="fb-post" data-href="{{ org.url }}" data-width="300"></div>
+                    </div>
+                    {% for img_url in org.extra_images[1:] %}
+                    <div class="org-collage-tile">
+                        <img src="{{ img_url }}" alt="">
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="org-collage-tile">
+                        <div class="fb-post" data-href="{{ org.url }}" data-width="300"></div>
+                    </div>
+                {% endif %}
+            </div>
+            <span class="flip-hint">click to read →</span>
+        </div>
+        <div class="org-card-back">
+            <div>
+                <div class="org-quote">{{ org.quote }}</div>
+            </div>
+            <span class="flip-hint">click to go back</span>
+        </div>
+    </div>
+    {% endfor %}
 </div>
+{% endfor %}
 
-<div class="state-section" id="section-los-angeles">
-    <h2>Los Angeles</h2>
-    <p>[Los Angeles content goes here]</p>
-</div>
-
-<div class="state-section" id="section-long-beach">
-    <h2>Long Beach</h2>
-    <p>[Long Beach content goes here]</p>
-</div>
-
-<div class="state-section" id="section-sacramento">
-    <h2>Sacramento</h2>
-    <p>[Sacramento content goes here]</p>
-</div>
 {% endblock %}

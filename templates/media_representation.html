@@ -119,11 +119,27 @@
             <h2>ICE arrests by state</h2>
             <div class="map-wrap">{{ arrests_choropleth|safe }}</div>
         </div>
-        <div class="plot-block" style="grid-column: 1 / -1;">
-            <h2>Location heatmap</h2>
-            <div class="map-wrap">{{ heatmap|safe }}</div>
-        </div>
     </div>
+</div>
+
+<div class="limitations" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e0e0e0;">
+    <h2 style="font-family: Georgia, serif; font-size: 1.2rem; font-weight: normal; margin-bottom: 1.25rem;">Data Limitations</h2>
+    <p style="font-family: Georgia, serif; color: #555; font-size: 0.95rem; line-height: 1.85; margin-bottom: 1.25rem;">
+        Our article data was sourced from GDELT, using their thematic filtering tags, from the following ten sources:
+        New York Times, Fox News, CNN, USA Today, Washington Post, Wall Street Journal, AP News, NBC News, NPR, and Breitbart.
+    </p>
+    <p style="font-family: Georgia, serif; color: #555; font-size: 0.95rem; line-height: 1.85; margin-bottom: 1.25rem;">
+        The criterion used to filter articles that mention ICE spottings is very crude, since
+        GDELT does not have a built-in theme for ICE, only the Department of Homeland Security. Thus,
+        the captured articles capture a bit more than just ICE actions, such as administrative or budgeting
+        concerns with the Department of Homeland Security. To ameliorate this effect, we tried to filter for themes
+        such as arrests, migration/immigration, violence, and unrest.
+    </p>
+    <p style="font-family: Georgia, serif; color: #555; font-size: 0.95rem; line-height: 1.85;">
+        Users are able to see the impact of using different dataset options for the geographical plots on the resulting conclusions;
+        however, there is little change between filters on observable patterns. We would like to do a more systematic review
+        of the themes included in our dataset to create a better filter, without baking in our assumptions about what ICE activity looks like.
+    </p>
 </div>
 
 {% endblock %}
