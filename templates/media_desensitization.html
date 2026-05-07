@@ -2,154 +2,11 @@
 
 {% block title %}Media Focus{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='media_desensitization.css') }}">
+{% endblock %}
+
 {% block content %}
-<style>
-    .page-header {
-        font-family: Georgia, serif;
-        font-size: 1.5rem;
-        font-weight: normal;
-        color: #1a1a1a;
-        margin-bottom: 1.25rem;
-    }
-
-    .desensitization-section {
-        margin-bottom: 3.5rem;
-        padding-bottom: 2rem;
-        border-bottom: 2px solid #e0e0e0;
-    }
-
-    .body-text {
-        font-family: Georgia, serif;
-        color: #555;
-        font-size: 0.95rem;
-        line-height: 1.85;
-        max-width: 800px;
-    }
-
-    .body-text p {
-        margin-bottom: 1.25rem;
-    }
-
-    .body-text p:last-child {
-        margin-bottom: 0;
-    }
-
-    .section-chart {
-        width: 100%;
-        max-width: 800px;
-        display: block;
-        margin: 0 0 2.5rem 0;
-        border: 1px solid #e0e0e0;
-    }
-
-    .sources-table-wrap {
-        overflow-x: auto;
-        margin-top: 4rem;
-        border: 1px solid #d0d0d0;
-    }
-
-    .sources-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-family: Georgia, serif;
-        font-size: 0.88rem;
-        color: #444;
-        line-height: 1.6;
-    }
-
-    .sources-table thead tr {
-        background: #d4eacd;
-    }
-
-    .sources-table th {
-        text-align: left;
-        padding: 0.75rem 1rem;
-        font-weight: bold;
-        color: #1a1a1a;
-        border-bottom: 2px solid #b0ccaa;
-        border-right: 1px solid #b0ccaa;
-    }
-
-    .sources-table th:last-child {
-        border-right: none;
-    }
-
-    .sources-table td {
-        padding: 0.85rem 1rem;
-        vertical-align: top;
-        border-bottom: 1px solid #e0e0e0;
-        border-right: 1px solid #e8e8e8;
-    }
-
-    .sources-table td:last-child {
-        border-right: none;
-    }
-
-    .sources-table tbody tr:nth-child(even) {
-        background: #fafafa;
-    }
-
-    .sources-table tbody tr:last-child td {
-        border-bottom: none;
-    }
-
-    .sources-table a {
-        color: #2a7a2a;
-        text-decoration: none;
-    }
-
-    .sources-table .cite-note {
-        color: #888;
-    }
-
-    .map-wrap {
-        height: 420px;
-        overflow: hidden;
-        border: 1px solid #e0e0e0;
-        margin-bottom: 3rem;
-    }
-
-    .map-subtext {
-        font-family: Georgia, serif;
-        color: #555;
-        margin-bottom: 1.5rem;
-    }
-
-    .city-section {
-        margin-top: 3.5rem;
-        padding-top: 1rem;
-        border-top: 2px solid #e0e0e0;
-    }
-
-    .city-section h3 {
-        font-family: Georgia, serif;
-        font-size: 1.15rem;
-        font-weight: normal;
-        color: #333;
-        margin-bottom: 1.25rem;
-    }
-
-    .media-block {
-        margin-bottom: 2rem;
-    }
-
-    .media-block h4 {
-        font-family: Georgia, serif;
-        font-size: 0.95rem;
-        font-weight: bold;
-        color: #555;
-        margin-bottom: 0.5rem;
-        letter-spacing: 0.02em;
-    }
-
-    .media-block p {
-        font-family: Georgia, serif;
-        font-size: 0.95rem;
-        color: #555;
-        line-height: 1.75;
-    }
-</style>
-
 <script>
   window.addEventListener('load', function() {
     if (window.location.hash) {
@@ -157,16 +14,27 @@
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
   });
+
+  function flipCard(card) {
+    if (card.classList.contains('folding')) return;
+    card.classList.add('folding');
+    setTimeout(function() {
+      card.classList.toggle('flipped');
+      card.classList.remove('folding');
+    }, 250);
+  }
 </script>
 
 <h1>Media Focus</h1>
 
+<!-- ── Media Desensitization ───────────────────────────────── -->
 <h2 class="page-header">Media Desensitization</h2>
 
 <div class="desensitization-section">
     <img src="{{ url_for('static', filename='images/trauma_porn_bar.png') }}"
          alt="Proportion of Trauma Porn Content by Search Query"
          class="section-chart">
+
     <div class="body-text">
         <p>The Grio identifies the concept of trauma porn as "...any type of media – be it written, photographed or filmed – which exploits traumatic moments of adversity to generate buzz, notoriety or social media attention". This pattern has deep historical roots, particularly in media portrayals of Black communities, stretching back to slavery-era imagery where enslaved bodies were displayed, photographed, and circulated as spectacles of punishment, torture, and death, often to reinforce racial hierarchies or satisfy morbid curiosity.</p>
         <p>Although it may be difficult to distinguish between documentation that serves historical truth or justice and content that merely profits from BIPOC suffering, Ganesan offers a useful framework: the difference between "portrait" (individual-focused) and "landscape" (issue-focused) portrayals. Trauma voyeurism fixates on the specific victim as a spectacle, whereas justice-oriented coverage addresses systemic conditions. The lines the Grio draws can help us distinguish between wanting to capture the lived realities of people with the intention to bring awareness to those experiences in order to bring some form of change and the exploitation of those lived experiences that often lead to desensitization. Justice-oriented documentation respects the victim's right not to be cast as a perpetual spectacle; exploitation, by contrast, treats trauma as entertainment.</p>
@@ -224,75 +92,58 @@
     </div>
 </div>
 
+<!-- ── Sensationalism and Pathos ───────────────────────────── -->
 <h2 class="page-header">The Sensationalism and Pathos of Media</h2>
+
+<p class="section-summary">How do different political leanings tell these depictions of violence differently?<br>
+General summary of differences between Right, Central, and Left leaning media sources.</p>
 
 <p class="map-subtext">Click a city on the map to jump to its section.</p>
 <div class="map-wrap">
-    {{ heatmap|safe }}
+    {{ choropleth|safe }}
 </div>
 
-<div class="city-section" id="section-new-york-city">
-    <h3>New York City</h3>
-    <div class="media-block">
-        <h4>The Guardian &amp; ProPublica</h4>
-        <p>Both articles describe some form of ICE activity. They follow a similar structure that begins with a description of events and quotes from DHS (Department of Homeland Security) and related parties giving a stance on what occurred. The conclusion then switches the tone as it includes the quotes and perspectives of people explicitly opposing the violence inflicted by ICE. The connotatively negative and emotional word choice also evokes urgency and an overall sense of disappointment with the quotes that reflect unexpectedness by those affected. The ProPublica article was written by a German reporter who frequently uses 'I' statements, and includes personal opinions from their perspective as someone who's recently come to the United States.</p>
-    </div>
-    <div class="media-block">
-        <h4>The Hill &amp; Newsweek</h4>
-        <p>The articles are different in length, but similar in the writing strategies used to convey 'objectivity.' There are more quotes than anything else which halts the development of a potential stance from the news sources. The Hill article contains more perspectives from the side of DHS (Department of Homeland Security) and related parties, and ends with minimal representation from those affected by or opposing ICE activity. Inversely, the Newsweek article has more representation from the side of opposition. Both articles contain images of anti-ICE protesters. While fairly assumed to be centrist given the lack of pathos in the articles, it's important for readers to note exclusion and inclusion as tactics by the media when portraying entities and events as negative or positive.</p>
-    </div>
-    <div class="media-block">
-        <h4>Fox News &amp; Breitbart</h4>
-        <p>Both article headlines are consistent with right-leaning media sources using words such as "Illegal" and "Alien" in reference to undocumented immigrants, both of which have negative connotations as descriptors. The articles contain descriptions of the event being reported on with an alarmed tone throughout the writing while it mentions the crimes occurring in the New York area where the raid was conducted by ICE. They also share in common a particular image of law enforcement standing while a woman (labeled a "protester") appears to be yelling at him. In a similar structure, the reports conclude with quotes from individuals opposing the actions of ICE during the raid.</p>
-    </div>
-</div>
+<script>
+  var mediaCityToSection = {
+    'New York City':       'section-new-york-city',
+    'Minneapolis':         'section-minneapolis',
+    'Central California':  'section-central-california',
+    'Southern California': 'section-southern-california',
+  };
 
-<div class="city-section" id="section-minneapolis">
-    <h3>Minneapolis</h3>
-    <div class="media-block">
-        <h4>The Guardian &amp; ProPublica</h4>
-        <p>The articles heavily incorporate the perspectives of anti-ICE community members of Minnesota, and little to no representation of DHS (Department of Homeland Security) and/or related parties. There is pathos at work with word choices that evoke empathy and sensitivity towards the people affected by ICE (Immigration and Customs Enforcement), along with including the actions and opinions supporting undocumented immigrants by various Minnesotans. The ProPublica article uses many "I" statements, and uses humanizing language in blurbs describing the people who are rallying together in Minnesota to help immigrant communities. Ultimately, the articles are attempting to achieve the appearance of overwhelming unity against ICE and related organizations.</p>
-    </div>
-    <div class="media-block">
-        <h4>The Hill &amp; Newsweek</h4>
-        <p>Newsweek's tone is reserved and conveys an impression of 'breaking news,' focusing on uncertainty and stressing the official voice of government agents. The choice of sources creates an impression of institutional power, depicting the incident as a reaction to the situation by the law and presenting it as such in the absence of the victim's narrative. Conversely, the Opinion by The Hill takes up a critique stance, describing ICE activities as part of racial profiling and using loaded terms such as 'military style.' Fear of violence, civil liberties, and the Constitution are its main elements.</p>
-    </div>
-    <div class="media-block">
-        <h4>Daily Caller &amp; Fox News</h4>
-        <p>In both articles, events are presented in the context of chaos and threat, employing phrases such as "crowd," "agitators," and "rioters" to reduce people to an antagonistic whole. In Fox News' version, the lack of police is emphasized, and protesters are described as "taking control" and constructing barriers, indicating the loss of control and the need for state intervention. In the Daily Caller's article, the emphasis is on "chaos," vandalism, and attacks, focusing on violence rather than context or motivation. Overall, this discourse turns protesters into a dangerous collective while painting ICE and other federal officers as threatened authorities.</p>
-    </div>
-</div>
+  var mediaChoroplethDiv = document.getElementById('media-choropleth');
+  if (mediaChoroplethDiv) {
+    mediaChoroplethDiv.on('plotly_click', function(data) {
+      var pt = data.points[0];
+      var sectionId = pt.customdata ? pt.customdata : null;
+      if (sectionId) {
+        var el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+</script>
 
-<div class="city-section" id="section-fresno">
-    <h3>Central California</h3>
-    <div class="media-block">
-        <h4>ProPublica &amp; NPR</h4>
-        <p>The ProPublica article employs very emotionally laden language, describing how "more than 170 Americans [were] kicked, dragged, and detained," thereby drawing attention to both physical abuse and institutional incompetence. The use of this language draws attention to the personal experiences of victims while implying that the ICE agency is brutal and capricious, with repeated instances of dropped charges and racial profiling. On the other hand, NPR describes ICE as an institution and focuses on the issue of California trying to ban masks as part of a policy or legislative initiative aimed at promoting transparency and citizen safety.</p>
-    </div>
-    <div class="media-block">
-        <h4>The Hill &amp; Newsweek</h4>
-        <p>Both sources frame the debate on the governor's actions in a neutral tone without any moralizing statements that may be viewed negatively. For instance, The Hill depicts the debate on Governor Newsom's actions within the context of politics by highlighting his refusal to engage in provocative statements about ICE, but at the same time highlighting the political differences between party members. Similarly, Newsweek utilizes numbers and statistics, including maps and figures showing the number of deportations across various states. This framing technique provides a more detached approach to the topic as compared to The Hill.</p>
-    </div>
-    <div class="media-block">
-        <h4>Daily Caller &amp; Breitbart</h4>
-        <p>While the Daily Caller article contextualizes immigration in terms of a "law and order" framework, mentioning a California sheriff who opposes sanctuary city status and characterizing undocumented immigrants as possible criminal risks, the Breitbart piece utilizes more provocative rhetoric, referring to a California mask ban bill that facilitates "retaliation" against ICE officers and labeling those in opposition "radical left-wing activists." Both articles stress the role of fear in the discourse around immigration, focusing on criminality, danger, and the victimization of police, but ignoring the point of view of immigrants themselves.</p>
-    </div>
-</div>
-
-<div class="city-section" id="section-long-beach">
-    <h3>Southern California</h3>
-    <div class="media-block">
-        <h4>ProPublica &amp; The Guardian</h4>
-        <p>In The Guardian piece, there is an emphasis on lived experience and fear, with phrases such as "agents ready to attack," which draws attention to unlawful arrests and the emotional trauma inflicted on civilians. This approach to humanizing the plight of individuals caught in ICE raids portrays the agency as unpredictable and ruthless, with a penchant for violence. Likewise, in ProPublica, mass sweeps have led to the arrest of protesters and innocent bystanders, who are ultimately released as their cases fall apart due to the lack of sufficient or conflicting evidence.</p>
-    </div>
-    <div class="media-block">
-        <h4>The Hill &amp; Newsweek</h4>
-        <p>The ICE action expansion in The Hill is viewed from a more procedural perspective, highlighting the enforcement policies beyond the boundaries of Los Angeles while prioritizing official accounts over personal ones. On the other hand, Newsweek provides information about alleged ICE raids impacting Los Angeles traffic flow, combining official data with other possible reasons, such as usual traffic flow dynamics. Both media provide little room for discussion of ICE action from the personal point of view, as both of them present a high degree of institutional framing with a focus on logistics and abstract processes.</p>
-    </div>
-    <div class="media-block">
-        <h4>Breitbart &amp; Daily Caller</h4>
-        <p>In the case of the Fox News report, the operations are framed as highly dangerous actions carried out under the constant fear of attacks, with an emphasis on allegations about ICE officers having been shot at or even narrowly escaping being run over. The report uses language that conveys the sense of escalation through such terms as "dodging bullets," and the allegations about activists' tracking down ICE agents portray the latter as being constantly under attack from protesters. In the Daily Caller report, the opposition is portrayed as one involving a mayoral candidate organizing gang members against ICE agents, which depicts an atmosphere of extreme political instability where those opposed to ICE agents are seen as criminals.</p>
+{% for city, analysis in media_analysis.items() %}
+<div class="city-section" id="section-{{ city | lower | replace(' ', '-') }}">
+    <h3>{{ city }}</h3>
+    <p class="city-desc">{{ analysis.desc }}</p>
+    <div class="lean-cards-grid">
+        {% for card in analysis.cards %}
+        <div class="lean-card {{ card.lean }}" onclick="flipCard(this)">
+            <div class="lean-card-front">
+                <div class="lean-card-label">{{ card.lean | title }} Leaning: {{ card.sources }}</div>
+                <p class="lean-card-short">{{ card.short_text }}</p>
+                <span class="lean-flip-hint">click to read more →</span>
+            </div>
+            <div class="lean-card-back">
+                <p class="lean-card-long">{{ card.long_text }}</p>
+                <span class="lean-flip-hint">click to go back</span>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
+{% endfor %}
 
 {% endblock %}

@@ -16,7 +16,8 @@ DATASETS = {
     },
 }
 
-ARRESTS_PATH     = "data_processing/data/live/ice_arrests.csv"
+ARRESTS_PATH        = "data_processing/data/live/ice_arrests.csv"
+MEDIA_ANALYSIS_PATH = "data_processing/data/live/mediaAnalysisData.csv"
 QUOTES_PATH      = "data_processing/data/live/communityQuoteData.csv"
 FACEBOOK_PATH    = "data_processing/data/live/communityImgData.csv"
 MORE_IMAGES_PATH = "data_processing/data/live/communityMoreImgData.csv"
@@ -27,6 +28,23 @@ def load_data() -> dict:
         df = pd.read_csv(Path(meta["path"]), parse_dates=["DATE"])
         loaded[key] = df
     return loaded
+
+def load_media_analysis() -> dict:
+    df = pd.read_csv(Path(MEDIA_ANALYSIS_PATH))
+    city_order = ["New York City", "Minneapolis", "Central California", "Southern California"]
+    result = {}
+    for city in city_order:
+        group = df[df["city"] == city]
+        if group.empty:
+            continue
+        rows = group.to_dict("records")
+        result[city] = {
+            "desc": rows[0]["city_desc"],
+            "cards": [{"lean": r["lean"], "sources": r["sources"],
+                       "short_text": r["short_text"], "long_text": r["long_text"]}
+                      for r in rows],
+        }
+    return result
 
 def load_arrests() -> pd.DataFrame:
     return pd.read_csv(Path(ARRESTS_PATH), parse_dates=["date"])

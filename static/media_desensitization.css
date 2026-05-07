@@ -1,0 +1,234 @@
+/* ── Page headers ─────────────────────────────────────────── */
+.page-header {
+    font-family: Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: #1a1a1a;
+    margin-bottom: 1.25rem;
+}
+
+/* ── Media Desensitization section ───────────────────────── */
+.desensitization-section {
+    margin-bottom: 3.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.body-text {
+    font-family: Georgia, serif;
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    max-width: 800px;
+}
+
+.body-text p {
+    margin-bottom: 1.25rem;
+}
+
+.body-text p:last-child {
+    margin-bottom: 0;
+}
+
+.section-chart {
+    width: 100%;
+    max-width: 800px;
+    display: block;
+    margin: 0 0 2.5rem 0;
+    border: 1px solid #e0e0e0;
+}
+
+/* ── Sources table ────────────────────────────────────────── */
+.sources-table-wrap {
+    overflow-x: auto;
+    margin-top: 4rem;
+    border: 1px solid #d0d0d0;
+}
+
+.sources-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Georgia, serif;
+    font-size: 0.88rem;
+    color: #444;
+    line-height: 1.6;
+}
+
+.sources-table thead tr {
+    background: #d4eacd;
+}
+
+.sources-table th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: bold;
+    color: #1a1a1a;
+    border-bottom: 2px solid #b0ccaa;
+    border-right: 1px solid #b0ccaa;
+}
+
+.sources-table th:last-child {
+    border-right: none;
+}
+
+.sources-table td {
+    padding: 0.85rem 1rem;
+    vertical-align: top;
+    border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e8e8e8;
+}
+
+.sources-table td:last-child {
+    border-right: none;
+}
+
+.sources-table tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.sources-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.sources-table a {
+    color: #2a7a2a;
+    text-decoration: none;
+}
+
+.sources-table .cite-note {
+    color: #888;
+}
+
+/* ── Map wrap ─────────────────────────────────────────────── */
+.map-wrap {
+    height: 420px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 3rem;
+}
+
+.map-wrap > div,
+.map-wrap iframe {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.map-subtext {
+    font-family: Georgia, serif;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Sensationalism summary ───────────────────────────────── */
+.section-summary {
+    font-family: Georgia, serif;
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 800px;
+    margin-bottom: 2.5rem;
+}
+
+/* ── City sections ────────────────────────────────────────── */
+.city-section {
+    margin-top: 3.5rem;
+    padding-top: 1rem;
+    border-top: 2px solid #e0e0e0;
+}
+
+.city-section h3 {
+    font-family: Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: normal;
+    color: #333;
+    margin-bottom: 0.75rem;
+}
+
+.city-desc {
+    font-family: Georgia, serif;
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Lean cards grid ──────────────────────────────────────── */
+.lean-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 1rem;
+}
+
+.lean-card {
+    border: 2px solid;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.25s ease;
+    transform-origin: center;
+    background: #fff;
+}
+
+.lean-card.folding {
+    transform: scaleX(0);
+}
+
+.lean-card-front,
+.lean-card-back {
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+}
+
+.lean-card-back {
+    display: none;
+    min-height: 180px;
+}
+
+.lean-card.flipped .lean-card-front {
+    display: none;
+}
+
+.lean-card.flipped .lean-card-back {
+    display: block;
+}
+
+/* Colors per lean */
+.lean-card.right  { border-color: #c0392b; }
+.lean-card.center { border-color: #7d3c98; }
+.lean-card.left   { border-color: #2471a3; }
+
+.lean-card-label {
+    font-family: Georgia, serif;
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.02em;
+}
+
+.lean-card.right  .lean-card-label { color: #c0392b; }
+.lean-card.center .lean-card-label { color: #7d3c98; }
+.lean-card.left   .lean-card-label { color: #2471a3; }
+
+.lean-card-short {
+    font-family: Georgia, serif;
+    font-size: 0.88rem;
+    color: #555;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+}
+
+.lean-card-long {
+    font-family: Georgia, serif;
+    font-size: 0.88rem;
+    color: #444;
+    line-height: 1.7;
+}
+
+.lean-flip-hint {
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 0.72rem;
+    color: #bbb;
+    text-align: right;
+    margin-top: 0.5rem;
+}
