@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Media Focus{% endblock %}
+{% block title %}Media Depictions{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='media_desensitization.css') }}">
@@ -25,8 +25,8 @@
   }
 </script>
 
-<h1>Media Focus: how does media chose to tell stories?</h1>
-<p class="page-intro">In the previous section, we looked at whose stories media choses to tell. Now, within that already
+<h1>Media Depiction: how does media chose to tell stories?</h1>
+<p class="prose intro">In the previous section, we looked at whose stories media choses to tell. Now, within that already
     limited scope of people, this section will analyze how media depicts their life stories. Namely, we find a strong
     general media focus on including damage-based content. Within this framework, we then look at the differences in
     framing and reporting between media outlets with different leans and find that both the left and the right use
@@ -34,32 +34,30 @@
 </p>
 
 <!-- ── Media Desensitization ───────────────────────────────── -->
-<h2 class="page-header">Saturation of damage-based content, leading to desensitization</h2>
+<h2 class="section-heading">Saturation of damage-based content, leading to desensitization</h2>
 
 <div class="desensitization-section">
     <img src="{{ url_for('static', filename='images/trauma_porn_bar.png') }}"
          alt="Proportion of Trauma Porn Content by Search Query"
          class="section-chart">
 
-    <div class="body-text">
-        <p>The Grio identifies the concept of trauma porn as "...any type of media – be it written, photographed or filmed – which exploits traumatic moments of adversity to generate buzz, notoriety or social media attention". This pattern has deep historical roots, particularly in media portrayals of Black communities, stretching back to slavery-era imagery where enslaved bodies were displayed, photographed, and circulated as spectacles of punishment, torture, and death, often to reinforce racial hierarchies or satisfy morbid curiosity.</p>
-        <p>Although it may be difficult to distinguish between documentation that serves historical truth or justice and content that merely profits from BIPOC suffering, Ganesan offers a useful framework: the difference between "portrait" (individual-focused) and "landscape" (issue-focused) portrayals. Trauma voyeurism fixates on the specific victim as a spectacle, whereas justice-oriented coverage addresses systemic conditions. The lines the Grio draws can help us distinguish between wanting to capture the lived realities of people with the intention to bring awareness to those experiences in order to bring some form of change and the exploitation of those lived experiences that often lead to desensitization. Justice-oriented documentation respects the victim's right not to be cast as a perpetual spectacle; exploitation, by contrast, treats trauma as entertainment.</p>
-        <p>For example, sharing obscene or gruesome images involving children, especially if the child is identifiable, only compounds harm. Ganesan adds a critical racial dimension: research shows Black children as young as ten are perceived as less innocent and more fit for adult consequences, meaning they are denied the protective framing afforded to white children when their images circulate as trauma porn. If a child is present and identifiable, sharing the images without protection qualifies as trauma porn.</p>
-        <p>Content depicting sexual assault and circulating it as "news" or content only re-traumatizes the victim and may even be consumed by individuals who sensationalize this kind of violence. If the content shows someone being sexually violated and it is shared without consent or trigger warnings, it is trauma porn. Justice requires consent, anonymity where requested, and centering survivors' needs, not viral metrics.</p>
-        <p>Content that reduces a person's most vulnerable or tragic moment into a meme, GIF, or punchline disconnects people from the human behind the clip. If the content captures a moment you wouldn't want shared about your own loved one, sharing it qualifies as trauma porn. Historically, trauma porn disproportionately targets Black and brown bodies being "maimed, murdered, abused, or exploited". This normalizes violence against marginalized communities, it reduces the severity of the occurrence by making it just another in a sea of violence.</p>
-        <p>As Ganesan notes, constant exposure to such depictions leaves many Black viewers with PTSD symptoms, increased fear, and hypervigilance. Yet as Shea Martin argues in the same article, "Relying on the consumption of trauma to evoke empathy is not sustainable for our work toward liberation." True justice interrupts that normalization by refusing to participate in the endless replay of Black suffering without accountability. If the content exploits a historically oppressed group for viewer fascination rather than dignity or justice, it qualifies.</p>
-        <p>Finally, not allowing the audience to either opt in or out of consuming the content (lack of trigger warning, having a graphic thumbnail, or including a video without warning) has the potential of traumatizing the audience and triggering survivors. Ganesan asserts a fundamental right that is often overlooked: "the Black community has the right to scroll without seeing images of death and suffering." There is a more ethical way of educating and bringing awareness that does not require denying viewers the choice to avoid the graphic content.</p>
-        <p>Darryl Lorenzo Wellington places responsibility on consumers: "If you find you regularly look at the exploitation of marginalized groups without wanting to take corrective action... the problem isn't with media. The problem is with you." Unlike trauma porn, which invites passive consumption, ethical engagement requires the harder work of voting, organizing, and sustained conversation. Justice, therefore, is not just about punishing perpetrators — it is also about refusing to turn victims into fodder for public consumption.</p>
-    </div>
+    <p class="prose">The Grio identifies the concept of trauma porn as "...any type of media – be it written, photographed or filmed – which exploits traumatic moments of adversity to generate buzz, notoriety or social media attention". This pattern has deep historical roots, particularly in media portrayals of Black communities, stretching back to slavery-era imagery where enslaved bodies were displayed, photographed, and circulated as spectacles of punishment, torture, and death, often to reinforce racial hierarchies or satisfy morbid curiosity.</p>
+    <p class="prose">Although it may be difficult to distinguish between documentation that serves historical truth or justice and content that merely profits from BIPOC suffering, Ganesan offers a useful framework: the difference between "portrait" (individual-focused) and "landscape" (issue-focused) portrayals. Trauma voyeurism fixates on the specific victim as a spectacle, whereas justice-oriented coverage addresses systemic conditions. The lines the Grio draws can help us distinguish between wanting to capture the lived realities of people with the intention to bring awareness to those experiences in order to bring some form of change and the exploitation of those lived experiences that often lead to desensitization. Justice-oriented documentation respects the victim's right not to be cast as a perpetual spectacle; exploitation, by contrast, treats trauma as entertainment.</p>
+    <p class="prose">For example, sharing obscene or gruesome images involving children, especially if the child is identifiable, only compounds harm. Ganesan adds a critical racial dimension: research shows Black children as young as ten are perceived as less innocent and more fit for adult consequences, meaning they are denied the protective framing afforded to white children when their images circulate as trauma porn. If a child is present and identifiable, sharing the images without protection qualifies as trauma porn.</p>
+    <p class="prose">Content depicting sexual assault and circulating it as "news" or content only re-traumatizes the victim and may even be consumed by individuals who sensationalize this kind of violence. If the content shows someone being sexually violated and it is shared without consent or trigger warnings, it is trauma porn. Justice requires consent, anonymity where requested, and centering survivors' needs, not viral metrics.</p>
+    <p class="prose">Content that reduces a person's most vulnerable or tragic moment into a meme, GIF, or punchline disconnects people from the human behind the clip. If the content captures a moment you wouldn't want shared about your own loved one, sharing it qualifies as trauma porn. Historically, trauma porn disproportionately targets Black and brown bodies being "maimed, murdered, abused, or exploited". This normalizes violence against marginalized communities, it reduces the severity of the occurrence by making it just another in a sea of violence.</p>
+    <p class="prose">As Ganesan notes, constant exposure to such depictions leaves many Black viewers with PTSD symptoms, increased fear, and hypervigilance. Yet as Shea Martin argues in the same article, "Relying on the consumption of trauma to evoke empathy is not sustainable for our work toward liberation." True justice interrupts that normalization by refusing to participate in the endless replay of Black suffering without accountability. If the content exploits a historically oppressed group for viewer fascination rather than dignity or justice, it qualifies.</p>
+    <p class="prose">Finally, not allowing the audience to either opt in or out of consuming the content (lack of trigger warning, having a graphic thumbnail, or including a video without warning) has the potential of traumatizing the audience and triggering survivors. Ganesan asserts a fundamental right that is often overlooked: "the Black community has the right to scroll without seeing images of death and suffering." There is a more ethical way of educating and bringing awareness that does not require denying viewers the choice to avoid the graphic content.</p>
+    <p class="prose">Darryl Lorenzo Wellington places responsibility on consumers: "If you find you regularly look at the exploitation of marginalized groups without wanting to take corrective action... the problem isn't with media. The problem is with you." Unlike trauma porn, which invites passive consumption, ethical engagement requires the harder work of voting, organizing, and sustained conversation. Justice, therefore, is not just about punishing perpetrators — it is also about refusing to turn victims into fodder for public consumption.</p>
 
     <div class="sources-table-wrap">
         <table class="sources-table">
             <thead>
                 <tr>
-                    <th style="width: 20%;">Source</th>
-                    <th style="width: 27%;">Definition</th>
-                    <th style="width: 27%;">Key Traits</th>
-                    <th style="width: 26%;">Call to Action</th>
+                    <th>Source</th>
+                    <th>Definition</th>
+                    <th>Key Traits</th>
+                    <th>Call to Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -99,16 +97,16 @@
 </div>
 
 <!-- ── Sensationalism and Pathos ───────────────────────────── -->
-<h2 class="page-header">Framing differences across political lean: sensationalism and pathos </h2>
-<h3 class=”section-subheader”>How do news outlets of different political leanings report on these depictions of violence differently?</h3>
+<h2 class="section-heading">Framing differences across political lean: sensationalism and pathos</h2>
+<h3 class="section-sub">How do news outlets of different political leanings report on these depictions of violence differently?</h3>
 
-<p class=”section-summary”>The following analyses are based on 4 U.S. regions/locations that we know to have had national
-    headlines in reportage for ICE activity. Initially, we wanted to randomly select the locations we’d cover but
-    realized finding articles related to ICE activity by national news outlets wouldn’t be possible for all locations.
+<p class="prose">The following analyses are based on 4 U.S. regions/locations that we know to have had national
+    headlines in reportage for ICE activity. Initially, we wanted to randomly select the locations we'd cover but
+    realized finding articles related to ICE activity by national news outlets wouldn't be possible for all locations.
     This may result in some biases for the media of the locations we chose.
 </p>
 
-<p class=”section-summary”>For each location there are three categories for the articles: sources that are politically
+<p class="prose">For each location there are three categories for the articles: sources that are politically
     left-leaning, center-leaning, and right-leaning, randomly selected from the current AllSides Media Bias Ratings
     chart. The categories have two articles — each from different sources but the same political leaning — that were
     analyzed by the rhetoric used to present the occurrence of ICE and/or immigration related activity. Our aim was
@@ -116,15 +114,15 @@
     institutions such as ICE and DHS.
 </p>
 
-<p class=”section-summary”>Through this, we found that left-leaning sources often rely on pathos that evokes empathy
+<p class="prose">Through this, we found that left-leaning sources often rely on pathos that evokes empathy
     towards undocumented immigrants, causing a hyper-emotional state, distress, or hopelessness. The center-leaning
     articles contained many quotes which appear to be part of a strategy of objectivity, but some also contained more
     quotes from either the side of ICE and related parties or from those empathetic towards undocumented immigrants.
-    The right-leaning sources often used the same type of descriptors before a subject — such as “Alien” — and also
+    The right-leaning sources often used the same type of descriptors before a subject — such as "Alien" — and also
     tried to stir emotion, but on the side of anxiety.
 </p>
 
-<p class="map-subtext">Click a city on the map to jump to its section.</p>
+<p class="prose map-label">Here is a map of all the regions we chose to analyze, overlaid with the heatmap showing distribution of media representation from the previous section. Click a city on the map to jump to its content analysis.</p>
 <div class="map-wrap">
     {{ choropleth|safe }}
 </div>
@@ -152,18 +150,18 @@
 
 {% for city, analysis in media_analysis.items() %}
 <div class="city-section" id="section-{{ city | lower | replace(' ', '-') }}">
-    <h3>{{ city }}</h3>
-    <p class="city-desc">{{ analysis.desc }}</p>
+    <h3 class="city-heading">{{ city }}</h3>
+    <p class="prose">{{ analysis.desc }}</p>
     <div class="lean-cards-grid">
         {% for card in analysis.cards %}
         <div class="lean-card {{ card.lean }}" onclick="flipCard(this)">
             <div class="lean-card-front">
                 <div class="lean-card-label">{{ card.lean | title }} Leaning: {{ card.sources }}</div>
-                <p class="lean-card-short">{{ card.short_text }}</p>
+                <p class="card-text">{{ card.short_text }}</p>
                 <span class="lean-flip-hint">click to read more →</span>
             </div>
             <div class="lean-card-back">
-                <p class="lean-card-long">{{ card.long_text }}</p>
+                <p class="card-text">{{ card.long_text }}</p>
                 <span class="lean-flip-hint">click to go back</span>
             </div>
         </div>

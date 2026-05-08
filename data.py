@@ -21,6 +21,7 @@ MEDIA_ANALYSIS_PATH = "data_processing/data/live/mediaAnalysisData.csv"
 QUOTES_PATH      = "data_processing/data/live/communityQuoteData.csv"
 FACEBOOK_PATH    = "data_processing/data/live/communityImgData.csv"
 MORE_IMAGES_PATH = "data_processing/data/live/communityMoreImgData.csv"
+ORG_DESC_PATH    = "data_processing/data/live/data - org_description.csv"
 
 def load_data() -> dict:
     loaded = {}
@@ -53,14 +54,16 @@ def load_narratives() -> dict:
     quotes     = pd.read_csv(Path(QUOTES_PATH))
     posts      = pd.read_csv(Path(FACEBOOK_PATH))
     more_imgs  = pd.read_csv(Path(MORE_IMAGES_PATH))
+    org_desc   = pd.read_csv(Path(ORG_DESC_PATH))
 
     quotes = quotes.dropna(subset=["org_num"])
     posts  = posts.dropna(subset=["org_num"])
     quotes["org_num"] = quotes["org_num"].astype(int)
     posts["org_num"]  = posts["org_num"].astype(int)
     merged = quotes.merge(posts, on=["city", "org_num"], how="outer")
-    merged["city"]     = merged["city"].replace("New York", "New York City")
-    more_imgs["city"]  = more_imgs["city"].replace("New York", "New York City")
+    merged["city"]    = merged["city"].replace("New York", "New York City")
+    more_imgs["city"] = more_imgs["city"].replace("New York", "New York City")
+    org_desc["city"]  = org_desc["city"].replace("New York", "New York City")
 
     extra = (more_imgs.groupby(["city", "org_num"])["url"]
              .apply(list)
@@ -69,6 +72,13 @@ def load_narratives() -> dict:
     merged["extra_images"] = merged["extra_images"].apply(
         lambda x: x if isinstance(x, list) else []
     )
+
+    merged = merged.merge(
+        org_desc[["city", "org_num", "org_name", "org_purpose", "org_description"]],
+        on=["city", "org_num"], how="left"
+    )
+    for col in ["org_name", "org_purpose", "org_description"]:
+        merged[col] = merged[col].fillna("").str.strip()
 
     result = {}
     for city, group in merged.sort_values("org_num").groupby("city"):
