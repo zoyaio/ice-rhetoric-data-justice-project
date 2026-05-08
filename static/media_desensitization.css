@@ -126,6 +126,30 @@
     font-size: 1rem;
     line-height: 1.8;
     max-width: 800px;
+    margin-bottom: 1.25rem;
+}
+
+.section-summary:last-of-type {
+    margin-bottom: 2.5rem;
+}
+
+.section-subheader {
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    font-weight: normal;
+    font-style: italic;
+    color: #444;
+    max-width: 800px;
+    margin-top: 0.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.page-intro {
+    font-family: Georgia, serif;
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    max-width: 800px;
     margin-bottom: 2.5rem;
 }
 

@@ -5,6 +5,7 @@ from branca.element import MacroElement
 from jinja2 import Template as JinjaTemplate
 import plotly.express as px
 import plotly.graph_objects as go
+
 from flask import Flask, render_template, request
 from data import load_data, load_arrests, load_narratives, load_media_analysis, DATASETS
 
@@ -92,7 +93,7 @@ def build_media_choropleth(df: pd.DataFrame) -> str:
         'New York City':       (40.7128,  -74.0060),
         'Minneapolis':         (44.9778,  -93.2650),
         'Central California':  (36.7378, -119.7871),
-        'Southern California': (33.7701, -118.1937),
+        'Southern California': (34.05,   -116.0),
     }
     city_to_section = {
         'New York City':       'section-new-york-city',
@@ -103,11 +104,10 @@ def build_media_choropleth(df: pd.DataFrame) -> str:
     fig.add_trace(go.Scattergeo(
         lat=[c[0] for c in cities.values()],
         lon=[c[1] for c in cities.values()],
-        text=['📍'] * len(cities),
         customdata=list(city_to_section.values()),
         hovertext=list(cities.keys()),
-        mode='text',
-        textfont=dict(size=22),
+        mode='markers',
+        marker=dict(size=14, color='#2e7d32', line=dict(width=2, color='white')),
         hovertemplate='%{hovertext} — click to explore<extra></extra>',
         showlegend=False,
     ))
@@ -201,11 +201,10 @@ def narratives_left_out():
     fig.add_trace(go.Scattergeo(
         lat=[c[0] for c in cities.values()],
         lon=[c[1] for c in cities.values()],
-        text=['📍'] * len(cities),
         customdata=list(cities.keys()),
         hovertext=list(cities.keys()),
-        mode='text',
-        textfont=dict(size=22),
+        mode='markers',
+        marker=dict(size=14, color='#2e7d32', line=dict(width=2, color='white')),
         hovertemplate='%{hovertext} — click to explore<extra></extra>',
         showlegend=False,
     ))

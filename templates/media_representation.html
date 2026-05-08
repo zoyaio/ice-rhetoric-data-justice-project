@@ -88,9 +88,64 @@
         width: 100% !important;
         height: 100% !important;
     }
+
+    .page-desc {
+        font-family: Georgia, serif;
+        color: #555;
+        font-size: 0.95rem;
+        line-height: 1.85;
+        max-width: 800px;
+        margin-bottom: 2rem;
+    }
+
+    .how-to-interact {
+        max-width: 800px;
+        margin-bottom: 2.5rem;
+        padding: 1.25rem 1.5rem;
+        background: #f9f9f9;
+        border-left: 3px solid #ccc;
+    }
+
+    .how-to-interact h2 {
+        font-family: Georgia, serif;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #1a1a1a;
+        margin-bottom: 0.75rem;
+    }
+
+    .how-to-interact p {
+        font-family: Georgia, serif;
+        font-size: 0.9rem;
+        color: #555;
+        line-height: 1.8;
+        margin-bottom: 0.6rem;
+    }
+
+    .how-to-interact p:last-child {
+        margin-bottom: 0;
+    }
+
+    .map-desc {
+        font-family: Georgia, serif;
+        font-size: 0.88rem;
+        color: #666;
+        line-height: 1.7;
+        margin-bottom: 0.75rem;
+        font-style: italic;
+    }
 </style>
 
-<h1>Media Representation</h1>
+<h1>Media Representation: whose stories does the media choose to represent?</h1>
+
+<p class="page-desc">In this section, we will be looking at which locations the top national news outlets reference most when providing coverage on ICE activity. We find that media coverage is oversaturated in certain states, such as Minneapolis and Illinois, compared to the actual number of arrests occurring in that state.</p>
+
+<div class="how-to-interact">
+    <h2>How to interact</h2>
+    <p>Below, you can select between plotting different datasets, over different periods of time.</p>
+    <p><strong>Dataset options</strong>: The datasets include different filters that change the news articles considered covering "ICE activity". See the data collection section for more information on these differences.</p>
+    <p><strong>Time range:</strong> We include a time selector because these trends change over time, for example, if selecting the start date to be 12/01/25, Minneapolis has a much higher saturation than the default. The default start date is 1/23/25, as this is when Trump began making policy changes regarding the DHS and ICE enforcement policy. The end date is 4/25/26, which is when we most recently updated this data collection.</p>
+</div>
 
 <form class="filter-form" method="POST">
     <label>Dataset
@@ -113,17 +168,20 @@
     <div class="plots-grid">
         <div class="plot-block">
             <h2>Article mentions by state</h2>
+            <p class="map-desc">This is a heatmap of the United States that shows the distribution of the number of times national news articles have reported about ICE activity in association with each state.</p>
             <div class="map-wrap">{{ choropleth|safe }}</div>
         </div>
         <div class="plot-block">
             <h2>ICE arrests by state</h2>
+            <p class="map-desc">This is a heatmap of the United States that shows the distribution of arrests made by ICE officers in every state. These people may not have been taken into detainment. </p>
             <div class="map-wrap">{{ arrests_choropleth|safe }}</div>
         </div>
     </div>
 </div>
 
 <div class="limitations" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e0e0e0;">
-    <h2 style="font-family: Georgia, serif; font-size: 1.2rem; font-weight: normal; margin-bottom: 1.25rem;">Data Limitations</h2>
+    <h2 style="font-family: Georgia, serif; font-size: 1.2rem; font-weight: normal; margin-bottom: 1.25rem;">Data Collection and Limitations</h2>
+    <h3 style="font-family: Georgia, serif; font-size: 1rem; font-weight: bold; color: #1a1a1a; margin-bottom: 0.75rem; margin-top: 1.5rem;">Graphic: article mentions by state </h3>
     <p style="font-family: Georgia, serif; color: #555; font-size: 0.95rem; line-height: 1.85; margin-bottom: 1.25rem;">
         Our article data was sourced from GDELT, using their thematic filtering tags, from the following ten sources:
         New York Times, Fox News, CNN, USA Today, Washington Post, Wall Street Journal, AP News, NBC News, NPR, and Breitbart.
@@ -136,9 +194,15 @@
         such as arrests, migration/immigration, violence, and unrest.
     </p>
     <p style="font-family: Georgia, serif; color: #555; font-size: 0.95rem; line-height: 1.85;">
-        Users are able to see the impact of using different dataset options for the geographical plots on the resulting conclusions;
-        however, there is little change between filters on observable patterns. We would like to do a more systematic review
-        of the themes included in our dataset to create a better filter, without baking in our assumptions about what ICE activity looks like.
+        Users are able to see the impact of using different dataset options for the geographical plots on the resulting conclusions. Interestingly, there is little change between filters on observable patterns. In our future steps, we would like to do a more systematic review of the themes included in our dataset to create a better filter, without baking in our assumptions about what ICE activity looks like. \n
+    </p>
+    
+    <p style="font-family: Georgia, serif; color: #555; font-size: 0.95rem; line-height: 1.85; margin-bottom: 1.25rem;">
+        The visualization is created by calculating the number of times a location is mentioned in articles within the dataset, using GDELT’s auto-detected location tags. We acknowledge that not all times a location is mentioned in an article, will it necessarily be used as a locational description of where ICE activity is occurring. However, this is not about logic, but about human psychology and the impact media representations cause on where people perceive ICE activity to be occurring, and at what rate. The more times that a location is mentioned in the same context as ICE, the more likely a user is to create an association between the two. This is not a perfect method, but there is no method using our dataset to see the relationship between each location mentioned in the text to the themes in the text, so we must settle for this imperfect methodology.
+    </p>
+    <h3 style="font-family: Georgia, serif; font-size: 1rem; font-weight: bold; color: #1a1a1a; margin-bottom: 0.75rem; margin-top: 1.5rem;">Other notes</h3>
+    <p style="font-family: Georgia, serif; color: #555; font-size: 0.95rem; line-height: 1.85;">
+        The granularity of our observations at the state level is because our data has mixed location tags at the state level and the city/county level, from both the Deportation Data Project and the GDELT database. In order to not falsely overrepresent smaller locations because of a lack of more fine-grained data, we stay at state level representations.
     </p>
 </div>
 
