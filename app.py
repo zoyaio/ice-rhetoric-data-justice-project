@@ -5,8 +5,9 @@ from branca.element import MacroElement
 from jinja2 import Template as JinjaTemplate
 import plotly.express as px
 import plotly.graph_objects as go
+
 from flask import Flask, render_template, request
-from data import load_data, load_arrests, load_narratives, DATASETS
+from data import load_data, load_arrests, load_narratives, load_media_analysis, DATASETS
 
 class ClickableMarker(MacroElement):
     def __init__(self, lat, lon, label, section, dest='/narratives-left-out'):
@@ -34,6 +35,7 @@ app = Flask(__name__)
 data = load_data()
 arrests = load_arrests()
 narratives = load_narratives()
+media_analysis = load_media_analysis()
 
 def build_arrests_choropleth(start_date_str: str, end_date_str: str) -> str:
     df = arrests.copy()
@@ -70,6 +72,46 @@ def build_choropleth(df: pd.DataFrame) -> str:
         labels={"count": "Article Mentions"},
     )
     return fig.to_html(full_html=False, include_plotlyjs="cdn", div_id="articles-choropleth")
+
+def build_media_choropleth(df: pd.DataFrame) -> str:
+    state_counts = (
+        df.groupby("adm1_code")
+        .size()
+        .reset_index(name="count")
+    )
+    state_counts["state_code"] = state_counts["adm1_code"].str[2:]
+    fig = px.choropleth(
+        state_counts,
+        locations="state_code",
+        locationmode="USA-states",
+        scope="usa",
+        color="count",
+        color_continuous_scale="Reds",
+        labels={"count": "Article Mentions"},
+    )
+    cities = {
+        'New York City':       (40.7128,  -74.0060),
+        'Minneapolis':         (44.9778,  -93.2650),
+        'Central California':  (36.7378, -119.7871),
+        'Southern California': (34.05,   -116.0),
+    }
+    city_to_section = {
+        'New York City':       'section-new-york-city',
+        'Minneapolis':         'section-minneapolis',
+        'Central California':  'section-central-california',
+        'Southern California': 'section-southern-california',
+    }
+    fig.add_trace(go.Scattergeo(
+        lat=[c[0] for c in cities.values()],
+        lon=[c[1] for c in cities.values()],
+        customdata=list(city_to_section.values()),
+        hovertext=list(cities.keys()),
+        mode='markers',
+        marker=dict(size=14, color='#2e7d32', line=dict(width=2, color='white')),
+        hovertemplate='%{hovertext} — click to explore<extra></extra>',
+        showlegend=False,
+    ))
+    return fig.to_html(full_html=False, include_plotlyjs="cdn", div_id="media-choropleth")
 
 def build_heatmap(df: pd.DataFrame) -> str:
     state_coords = df[df["location_type"] == 2][["lat", "lon"]].values.tolist()
@@ -126,8 +168,10 @@ def media_representation():
 @app.route('/media-desensitization')
 def media_desensitization():
     full_df = data['dhs_migration']
-    heatmap_html = build_heatmap(full_df)
-    return render_template('media_desensitization.html', heatmap=heatmap_html)
+    choropleth_html = build_media_choropleth(full_df)
+    return render_template('media_desensitization.html',
+                           choropleth=choropleth_html,
+                           media_analysis=media_analysis)
 
 @app.route('/narratives-left-out')
 def narratives_left_out():
@@ -157,15 +201,11 @@ def narratives_left_out():
     fig.add_trace(go.Scattergeo(
         lat=[c[0] for c in cities.values()],
         lon=[c[1] for c in cities.values()],
-        text=list(cities.keys()),
         customdata=list(cities.keys()),
+        hovertext=list(cities.keys()),
         mode='markers',
-        marker=dict(
-            size=10,
-            color='rgba(0,0,0,0)',
-            line=dict(color='#2a9d2a', width=2),
-        ),
-        hovertemplate='%{customdata} — click to explore<extra></extra>',
+        marker=dict(size=14, color='#2e7d32', line=dict(width=2, color='white')),
+        hovertemplate='%{hovertext} — click to explore<extra></extra>',
         showlegend=False,
     ))
     choropleth_html = fig.to_html(full_html=False, include_plotlyjs="cdn", div_id="narratives-choropleth")

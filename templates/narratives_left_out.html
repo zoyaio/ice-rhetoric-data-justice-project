@@ -86,11 +86,27 @@
     .org-title-header {
         font-family: Georgia, serif;
         font-size: 1rem;
-        font-weight: normal;
+        font-weight: bold;
+        color: #1a1a1a;
+        margin-bottom: 0.25rem;
+        margin-top: 2rem;
+    }
+
+    .org-purpose-tag {
+        font-family: Georgia, serif;
+        font-size: 0.88rem;
         font-style: italic;
         color: #888;
         margin-bottom: 0.6rem;
-        margin-top: 2rem;
+    }
+
+    .org-description {
+        font-family: Georgia, serif;
+        font-size: 0.95rem;
+        color: #555;
+        line-height: 1.85;
+        max-width: 800px;
+        margin-bottom: 1rem;
     }
 
     /* Collage */
@@ -185,7 +201,15 @@
 <div class="city-section" id="section-{{ city | lower | replace(' ', '-') }}">
     <h2>{{ city }}</h2>
     {% for org in orgs %}
+    {% if org.org_name %}
+    <h3 class="org-title-header">{{ org.org_name }}</h3>
+    <p class="org-purpose-tag">{{ org.org_purpose }}</p>
+    {% else %}
     <h3 class="org-title-header">{{ org.title }}</h3>
+    {% endif %}
+    {% if org.org_description %}
+    <p class="org-description">{{ org.org_description }}</p>
+    {% endif %}
     <div class="org-card" onclick="flipCard(this)">
         <div class="org-card-front">
             <div class="org-collage">
@@ -219,5 +243,11 @@
     {% endfor %}
 </div>
 {% endfor %}
+
+<h2> Conclusion</h2>
+<p>
+    What reporting resilience does, or at least what we hope it does, is introduces the communities impacted to resources and organizations they may not have previously been aware of. For instance, legal support, know your rights workshops, and food/supply drives. Additionally, we hope to provide the impacted communities with a sense of empowerment and trust in their own power and voices, and to make the general public aware that ICEs control and impact is not as far-reaching as they would like to make it seem.
+
+</p>
 
 {% endblock %}

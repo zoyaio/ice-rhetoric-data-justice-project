@@ -1,155 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Media Focus{% endblock %}
+{% block title %}Media Depictions{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='media_desensitization.css') }}">
+{% endblock %}
 
 {% block content %}
-<style>
-    .page-header {
-        font-family: Georgia, serif;
-        font-size: 1.5rem;
-        font-weight: normal;
-        color: #1a1a1a;
-        margin-bottom: 1.25rem;
-    }
-
-    .desensitization-section {
-        margin-bottom: 3.5rem;
-        padding-bottom: 2rem;
-        border-bottom: 2px solid #e0e0e0;
-    }
-
-    .body-text {
-        font-family: Georgia, serif;
-        color: #555;
-        font-size: 0.95rem;
-        line-height: 1.85;
-        max-width: 800px;
-    }
-
-    .body-text p {
-        margin-bottom: 1.25rem;
-    }
-
-    .body-text p:last-child {
-        margin-bottom: 0;
-    }
-
-    .section-chart {
-        width: 100%;
-        max-width: 800px;
-        display: block;
-        margin: 0 0 2.5rem 0;
-        border: 1px solid #e0e0e0;
-    }
-
-    .sources-table-wrap {
-        overflow-x: auto;
-        margin-top: 4rem;
-        border: 1px solid #d0d0d0;
-    }
-
-    .sources-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-family: Georgia, serif;
-        font-size: 0.88rem;
-        color: #444;
-        line-height: 1.6;
-    }
-
-    .sources-table thead tr {
-        background: #d4eacd;
-    }
-
-    .sources-table th {
-        text-align: left;
-        padding: 0.75rem 1rem;
-        font-weight: bold;
-        color: #1a1a1a;
-        border-bottom: 2px solid #b0ccaa;
-        border-right: 1px solid #b0ccaa;
-    }
-
-    .sources-table th:last-child {
-        border-right: none;
-    }
-
-    .sources-table td {
-        padding: 0.85rem 1rem;
-        vertical-align: top;
-        border-bottom: 1px solid #e0e0e0;
-        border-right: 1px solid #e8e8e8;
-    }
-
-    .sources-table td:last-child {
-        border-right: none;
-    }
-
-    .sources-table tbody tr:nth-child(even) {
-        background: #fafafa;
-    }
-
-    .sources-table tbody tr:last-child td {
-        border-bottom: none;
-    }
-
-    .sources-table a {
-        color: #2a7a2a;
-        text-decoration: none;
-    }
-
-    .sources-table .cite-note {
-        color: #888;
-    }
-
-    .map-wrap {
-        height: 420px;
-        overflow: hidden;
-        border: 1px solid #e0e0e0;
-        margin-bottom: 3rem;
-    }
-
-    .map-subtext {
-        font-family: Georgia, serif;
-        color: #555;
-        margin-bottom: 1.5rem;
-    }
-
-    .city-section {
-        margin-top: 3.5rem;
-        padding-top: 1rem;
-        border-top: 2px solid #e0e0e0;
-    }
-
-    .city-section h3 {
-        font-family: Georgia, serif;
-        font-size: 1.15rem;
-        font-weight: normal;
-        color: #333;
-        margin-bottom: 1.25rem;
-    }
-
-    .media-block {
-        margin-bottom: 2rem;
-    }
-
-    .media-block h4 {
-        font-family: Georgia, serif;
-        font-size: 0.95rem;
-        font-weight: bold;
-        color: #555;
-        margin-bottom: 0.5rem;
-        letter-spacing: 0.02em;
-    }
-
-    .media-block p {
-        font-family: Georgia, serif;
-        font-size: 0.95rem;
-        color: #555;
-        line-height: 1.75;
-    }
-</style>
-
 <script>
   window.addEventListener('load', function() {
     if (window.location.hash) {
@@ -157,35 +14,109 @@
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
   });
+
+  function flipCard(card) {
+    if (card.classList.contains('folding')) return;
+    card.classList.add('folding');
+    setTimeout(function() {
+      card.classList.toggle('flipped');
+      card.classList.remove('folding');
+    }, 250);
+  }
+
+  function toggleExample(btn) {
+    var content = btn.nextElementSibling;
+    var open = content.classList.toggle('open');
+    btn.textContent = open ? 'Click to see example ▴' : 'Click to see example ▾';
+  }
+
+  function openDetailModal() {
+    document.getElementById('detail-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDetailModal(e) {
+    if (!e || e.target === document.getElementById('detail-modal') || e.currentTarget.classList.contains('modal-close')) {
+      document.getElementById('detail-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
 </script>
 
-<h1>Media Focus</h1>
+<h1>Media Depiction: how does media chose to tell stories?</h1>
+<p class="prose intro">In the previous section, we looked at whose stories media choses to tell. Now, within that already
+    limited scope of people, this section will analyze how media depicts their life stories. Namely, we find a strong
+    general media focus on including damage-based content. Within this framework, we then look at the differences in
+    framing and reporting between media outlets with different leans and find that both the left and the right use
+    sensationalized or incredibly emotional formats to tell these damage-based stories.
+</p>
 
-<h2 class="page-header">Media Desensitization</h2>
+<nav class="page-toc">
+    <p class="page-toc-title">Contents</p>
+    <a href="#section-desensitization">Saturation of damage-based content that leads to desensitization</a>
+    <a href="#section-framing">Framing differences across political lean: sensationalism and pathos</a>
+    <a href="#section-data-collection">Data collection and methods</a>
+</nav>
+
+<!-- ── Media Desensitization ───────────────────────────────── -->
+<h2 class="section-heading" id="section-desensitization">Saturation of damage-based content, leading to desensitization</h2>
 
 <div class="desensitization-section">
+
+    <!-- Two-column concept comparison -->
+    <div class="concept-grid">
+        <div class="concept-col">
+            <h3 class="concept-heading">Trauma Porn</h3>
+            <p class="concept-filler">
+                [Placeholder: definition of trauma porn — to be filled in.]
+            </p>
+            <button class="example-btn" onclick="toggleExample(this)">Click to see example ▾</button>
+            <div class="example-content">
+                <p class="card-text">[Placeholder: example of trauma porn content — to be filled in.]</p>
+            </div>
+        </div>
+        <div class="concept-col">
+            <h3 class="concept-heading">Justice-oriented Coverage</h3>
+            <p class="concept-filler">
+                [Placeholder: definition of justice-oriented coverage — to be filled in.]
+            </p>
+            <button class="example-btn" onclick="toggleExample(this)">Click to see example ▾</button>
+            <div class="example-content">
+                <p class="card-text">[Placeholder: example of justice-oriented coverage — to be filled in.]</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full-width actions -->
+    <button class="detailed-btn" onclick="openDetailModal()">Click here to read a more detailed explanation</button>
+    <p class="callout-note">See more about how these definitions were made in the source analysis section.</p>
+
+    <!-- Transition text placeholder -->
+    <p class="prose concept-filler-block">
+        [Placeholder: transition text — to be filled in.]
+    </p>
+
+    <!-- Bar chart -->
     <img src="{{ url_for('static', filename='images/trauma_porn_bar.png') }}"
          alt="Proportion of Trauma Porn Content by Search Query"
          class="section-chart">
-    <div class="body-text">
-        <p>The Grio identifies the concept of trauma porn as "...any type of media – be it written, photographed or filmed – which exploits traumatic moments of adversity to generate buzz, notoriety or social media attention". This pattern has deep historical roots, particularly in media portrayals of Black communities, stretching back to slavery-era imagery where enslaved bodies were displayed, photographed, and circulated as spectacles of punishment, torture, and death, often to reinforce racial hierarchies or satisfy morbid curiosity.</p>
-        <p>Although it may be difficult to distinguish between documentation that serves historical truth or justice and content that merely profits from BIPOC suffering, Ganesan offers a useful framework: the difference between "portrait" (individual-focused) and "landscape" (issue-focused) portrayals. Trauma voyeurism fixates on the specific victim as a spectacle, whereas justice-oriented coverage addresses systemic conditions. The lines the Grio draws can help us distinguish between wanting to capture the lived realities of people with the intention to bring awareness to those experiences in order to bring some form of change and the exploitation of those lived experiences that often lead to desensitization. Justice-oriented documentation respects the victim's right not to be cast as a perpetual spectacle; exploitation, by contrast, treats trauma as entertainment.</p>
-        <p>For example, sharing obscene or gruesome images involving children, especially if the child is identifiable, only compounds harm. Ganesan adds a critical racial dimension: research shows Black children as young as ten are perceived as less innocent and more fit for adult consequences, meaning they are denied the protective framing afforded to white children when their images circulate as trauma porn. If a child is present and identifiable, sharing the images without protection qualifies as trauma porn.</p>
-        <p>Content depicting sexual assault and circulating it as "news" or content only re-traumatizes the victim and may even be consumed by individuals who sensationalize this kind of violence. If the content shows someone being sexually violated and it is shared without consent or trigger warnings, it is trauma porn. Justice requires consent, anonymity where requested, and centering survivors' needs, not viral metrics.</p>
-        <p>Content that reduces a person's most vulnerable or tragic moment into a meme, GIF, or punchline disconnects people from the human behind the clip. If the content captures a moment you wouldn't want shared about your own loved one, sharing it qualifies as trauma porn. Historically, trauma porn disproportionately targets Black and brown bodies being "maimed, murdered, abused, or exploited". This normalizes violence against marginalized communities, it reduces the severity of the occurrence by making it just another in a sea of violence.</p>
-        <p>As Ganesan notes, constant exposure to such depictions leaves many Black viewers with PTSD symptoms, increased fear, and hypervigilance. Yet as Shea Martin argues in the same article, "Relying on the consumption of trauma to evoke empathy is not sustainable for our work toward liberation." True justice interrupts that normalization by refusing to participate in the endless replay of Black suffering without accountability. If the content exploits a historically oppressed group for viewer fascination rather than dignity or justice, it qualifies.</p>
-        <p>Finally, not allowing the audience to either opt in or out of consuming the content (lack of trigger warning, having a graphic thumbnail, or including a video without warning) has the potential of traumatizing the audience and triggering survivors. Ganesan asserts a fundamental right that is often overlooked: "the Black community has the right to scroll without seeing images of death and suffering." There is a more ethical way of educating and bringing awareness that does not require denying viewers the choice to avoid the graphic content.</p>
-        <p>Darryl Lorenzo Wellington places responsibility on consumers: "If you find you regularly look at the exploitation of marginalized groups without wanting to take corrective action... the problem isn't with media. The problem is with you." Unlike trauma porn, which invites passive consumption, ethical engagement requires the harder work of voting, organizing, and sustained conversation. Justice, therefore, is not just about punishing perpetrators — it is also about refusing to turn victims into fodder for public consumption.</p>
-    </div>
 
+    <!-- Analysis text + callout -->
+    <p class="prose concept-filler-block">
+        [Placeholder: analysis of the bar chart — to be filled in.]
+    </p>
+    <p class="callout-note">See more about our collection methods in the data collection section below.</p>
+
+    <!-- Source Analysis -->
+    <h3 class="concept-heading source-analysis-heading">Source Analysis</h3>
     <div class="sources-table-wrap">
         <table class="sources-table">
             <thead>
                 <tr>
-                    <th style="width: 20%;">Source</th>
-                    <th style="width: 27%;">Definition</th>
-                    <th style="width: 27%;">Key Traits</th>
-                    <th style="width: 26%;">Call to Action</th>
+                    <th>Source</th>
+                    <th>Definition</th>
+                    <th>Key Traits</th>
+                    <th>Call to Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -224,74 +155,94 @@
     </div>
 </div>
 
-<h2 class="page-header">The Sensationalism and Pathos of Media</h2>
+<!-- ── Sensationalism and Pathos ───────────────────────────── -->
+<h2 class="section-heading" id="section-framing">Reporting differences across political leans: sensationalism and pathos</h2>
+<h3 class="section-sub">How do news outlets of different political leanings report on these depictions of violence differently?</h3>
 
-<p class="map-subtext">Click a city on the map to jump to its section.</p>
+<p class="prose">The following analyses are based on 4 U.S. regions/locations that we know to have had national
+    headlines in reportage for ICE activity. Initially, we wanted to randomly select the locations we'd cover but
+    realized finding articles related to ICE activity by national news outlets wouldn't be possible for all locations.
+    This may result in some biases for the media of the locations we chose.
+</p>
+
+<p class="prose">For each location there are three categories for the articles: sources that are politically
+    left-leaning, center-leaning, and right-leaning, randomly selected from the current AllSides Media Bias Ratings
+    chart. The categories have two articles — each from different sources but the same political leaning — that were
+    analyzed by the rhetoric used to present the occurrence of ICE and/or immigration related activity. Our aim was
+    to explain how, on the national level, media can be harmful towards movements and communities when weaponized by
+    institutions such as ICE and DHS.
+</p>
+
+<p class="prose">Through this, we found that left-leaning sources often rely on pathos that evokes empathy
+    towards undocumented immigrants, causing a hyper-emotional state, distress, or hopelessness. The center-leaning
+    articles contained many quotes which appear to be part of a strategy of objectivity, but some also contained more
+    quotes from either the side of ICE and related parties or from those empathetic towards undocumented immigrants.
+    The right-leaning sources often used the same type of descriptors before a subject — such as "Alien" — and also
+    tried to stir emotion, but on the side of anxiety.
+</p>
+
+<p class="prose map-label">Here is a map of all the regions we chose to analyze, overlaid with the heatmap showing distribution of media representation from the previous section. Click a city on the map to jump to its content analysis.</p>
 <div class="map-wrap">
-    {{ heatmap|safe }}
+    {{ choropleth|safe }}
 </div>
 
-<div class="city-section" id="section-new-york-city">
-    <h3>New York City</h3>
-    <div class="media-block">
-        <h4>The Guardian &amp; ProPublica</h4>
-        <p>Both articles describe some form of ICE activity. They follow a similar structure that begins with a description of events and quotes from DHS (Department of Homeland Security) and related parties giving a stance on what occurred. The conclusion then switches the tone as it includes the quotes and perspectives of people explicitly opposing the violence inflicted by ICE. The connotatively negative and emotional word choice also evokes urgency and an overall sense of disappointment with the quotes that reflect unexpectedness by those affected. The ProPublica article was written by a German reporter who frequently uses 'I' statements, and includes personal opinions from their perspective as someone who's recently come to the United States.</p>
-    </div>
-    <div class="media-block">
-        <h4>The Hill &amp; Newsweek</h4>
-        <p>The articles are different in length, but similar in the writing strategies used to convey 'objectivity.' There are more quotes than anything else which halts the development of a potential stance from the news sources. The Hill article contains more perspectives from the side of DHS (Department of Homeland Security) and related parties, and ends with minimal representation from those affected by or opposing ICE activity. Inversely, the Newsweek article has more representation from the side of opposition. Both articles contain images of anti-ICE protesters. While fairly assumed to be centrist given the lack of pathos in the articles, it's important for readers to note exclusion and inclusion as tactics by the media when portraying entities and events as negative or positive.</p>
-    </div>
-    <div class="media-block">
-        <h4>Fox News &amp; Breitbart</h4>
-        <p>Both article headlines are consistent with right-leaning media sources using words such as "Illegal" and "Alien" in reference to undocumented immigrants, both of which have negative connotations as descriptors. The articles contain descriptions of the event being reported on with an alarmed tone throughout the writing while it mentions the crimes occurring in the New York area where the raid was conducted by ICE. They also share in common a particular image of law enforcement standing while a woman (labeled a "protester") appears to be yelling at him. In a similar structure, the reports conclude with quotes from individuals opposing the actions of ICE during the raid.</p>
+<script>
+  var mediaChoroplethDiv = document.getElementById('media-choropleth');
+  if (mediaChoroplethDiv) {
+    mediaChoroplethDiv.on('plotly_click', function(data) {
+      var pt = data.points[0];
+      var sectionId = pt.customdata ? pt.customdata : null;
+      if (sectionId) {
+        var el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+</script>
+
+{% for city, analysis in media_analysis.items() %}
+<div class="city-section" id="section-{{ city | lower | replace(' ', '-') }}">
+    <h3 class="city-heading">{{ city }}</h3>
+    <p class="prose">{{ analysis.desc }}</p>
+    <div class="lean-cards-grid">
+        {% for card in analysis.cards %}
+        <div class="lean-card {{ card.lean }}" onclick="flipCard(this)">
+            <div class="lean-card-front">
+                <div class="lean-card-label">{{ card.lean | title }} Leaning: {{ card.sources }}</div>
+                <p class="card-text">{{ card.short_text }}</p>
+                <span class="lean-flip-hint">click to read more →</span>
+            </div>
+            <div class="lean-card-back">
+                <p class="card-text">{{ card.long_text }}</p>
+                <span class="lean-flip-hint">click to go back</span>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
+{% endfor %}
 
-<div class="city-section" id="section-minneapolis">
-    <h3>Minneapolis</h3>
-    <div class="media-block">
-        <h4>The Guardian &amp; ProPublica</h4>
-        <p>The articles heavily incorporate the perspectives of anti-ICE community members of Minnesota, and little to no representation of DHS (Department of Homeland Security) and/or related parties. There is pathos at work with word choices that evoke empathy and sensitivity towards the people affected by ICE (Immigration and Customs Enforcement), along with including the actions and opinions supporting undocumented immigrants by various Minnesotans. The ProPublica article uses many "I" statements, and uses humanizing language in blurbs describing the people who are rallying together in Minnesota to help immigrant communities. Ultimately, the articles are attempting to achieve the appearance of overwhelming unity against ICE and related organizations.</p>
-    </div>
-    <div class="media-block">
-        <h4>The Hill &amp; Newsweek</h4>
-        <p>Newsweek's tone is reserved and conveys an impression of 'breaking news,' focusing on uncertainty and stressing the official voice of government agents. The choice of sources creates an impression of institutional power, depicting the incident as a reaction to the situation by the law and presenting it as such in the absence of the victim's narrative. Conversely, the Opinion by The Hill takes up a critique stance, describing ICE activities as part of racial profiling and using loaded terms such as 'military style.' Fear of violence, civil liberties, and the Constitution are its main elements.</p>
-    </div>
-    <div class="media-block">
-        <h4>Daily Caller &amp; Fox News</h4>
-        <p>In both articles, events are presented in the context of chaos and threat, employing phrases such as "crowd," "agitators," and "rioters" to reduce people to an antagonistic whole. In Fox News' version, the lack of police is emphasized, and protesters are described as "taking control" and constructing barriers, indicating the loss of control and the need for state intervention. In the Daily Caller's article, the emphasis is on "chaos," vandalism, and attacks, focusing on violence rather than context or motivation. Overall, this discourse turns protesters into a dangerous collective while painting ICE and other federal officers as threatened authorities.</p>
-    </div>
+<!-- ── Data Collection ───────────────────────────────────────── -->
+<div class="city-section">
+    <h2 class="section-heading" id="section-data-collection">Data collection and methods</h2>
+    <p class="prose">
+        [Placeholder: data collection description — to be filled in.]
+    </p>
 </div>
 
-<div class="city-section" id="section-fresno">
-    <h3>Central California</h3>
-    <div class="media-block">
-        <h4>ProPublica &amp; NPR</h4>
-        <p>The ProPublica article employs very emotionally laden language, describing how "more than 170 Americans [were] kicked, dragged, and detained," thereby drawing attention to both physical abuse and institutional incompetence. The use of this language draws attention to the personal experiences of victims while implying that the ICE agency is brutal and capricious, with repeated instances of dropped charges and racial profiling. On the other hand, NPR describes ICE as an institution and focuses on the issue of California trying to ban masks as part of a policy or legislative initiative aimed at promoting transparency and citizen safety.</p>
-    </div>
-    <div class="media-block">
-        <h4>The Hill &amp; Newsweek</h4>
-        <p>Both sources frame the debate on the governor's actions in a neutral tone without any moralizing statements that may be viewed negatively. For instance, The Hill depicts the debate on Governor Newsom's actions within the context of politics by highlighting his refusal to engage in provocative statements about ICE, but at the same time highlighting the political differences between party members. Similarly, Newsweek utilizes numbers and statistics, including maps and figures showing the number of deportations across various states. This framing technique provides a more detached approach to the topic as compared to The Hill.</p>
-    </div>
-    <div class="media-block">
-        <h4>Daily Caller &amp; Breitbart</h4>
-        <p>While the Daily Caller article contextualizes immigration in terms of a "law and order" framework, mentioning a California sheriff who opposes sanctuary city status and characterizing undocumented immigrants as possible criminal risks, the Breitbart piece utilizes more provocative rhetoric, referring to a California mask ban bill that facilitates "retaliation" against ICE officers and labeling those in opposition "radical left-wing activists." Both articles stress the role of fear in the discourse around immigration, focusing on criminality, danger, and the victimization of police, but ignoring the point of view of immigrants themselves.</p>
-    </div>
-</div>
-
-<div class="city-section" id="section-long-beach">
-    <h3>Southern California</h3>
-    <div class="media-block">
-        <h4>ProPublica &amp; The Guardian</h4>
-        <p>In The Guardian piece, there is an emphasis on lived experience and fear, with phrases such as "agents ready to attack," which draws attention to unlawful arrests and the emotional trauma inflicted on civilians. This approach to humanizing the plight of individuals caught in ICE raids portrays the agency as unpredictable and ruthless, with a penchant for violence. Likewise, in ProPublica, mass sweeps have led to the arrest of protesters and innocent bystanders, who are ultimately released as their cases fall apart due to the lack of sufficient or conflicting evidence.</p>
-    </div>
-    <div class="media-block">
-        <h4>The Hill &amp; Newsweek</h4>
-        <p>The ICE action expansion in The Hill is viewed from a more procedural perspective, highlighting the enforcement policies beyond the boundaries of Los Angeles while prioritizing official accounts over personal ones. On the other hand, Newsweek provides information about alleged ICE raids impacting Los Angeles traffic flow, combining official data with other possible reasons, such as usual traffic flow dynamics. Both media provide little room for discussion of ICE action from the personal point of view, as both of them present a high degree of institutional framing with a focus on logistics and abstract processes.</p>
-    </div>
-    <div class="media-block">
-        <h4>Breitbart &amp; Daily Caller</h4>
-        <p>In the case of the Fox News report, the operations are framed as highly dangerous actions carried out under the constant fear of attacks, with an emphasis on allegations about ICE officers having been shot at or even narrowly escaping being run over. The report uses language that conveys the sense of escalation through such terms as "dodging bullets," and the allegations about activists' tracking down ICE agents portray the latter as being constantly under attack from protesters. In the Daily Caller report, the opposition is portrayed as one involving a mayoral candidate organizing gang members against ICE agents, which depicts an atmosphere of extreme political instability where those opposed to ICE agents are seen as criminals.</p>
+<!-- ── Detail modal ──────────────────────────────────────────── -->
+<div class="modal-overlay" id="detail-modal" onclick="closeDetailModal(event)">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeDetailModal()">✕</button>
+        <h2 class="section-heading" style="font-size: 1.1rem; margin-bottom: 1.5rem;">Trauma Porn & Justice-oriented Coverage: Detailed Explanation</h2>
+        <p class="prose">The Grio identifies the concept of trauma porn as "...any type of media – be it written, photographed or filmed – which exploits traumatic moments of adversity to generate buzz, notoriety or social media attention". This pattern has deep historical roots, particularly in media portrayals of Black communities, stretching back to slavery-era imagery where enslaved bodies were displayed, photographed, and circulated as spectacles of punishment, torture, and death, often to reinforce racial hierarchies or satisfy morbid curiosity.</p>
+        <p class="prose">Although it may be difficult to distinguish between documentation that serves historical truth or justice and content that merely profits from BIPOC suffering, Ganesan offers a useful framework: the difference between "portrait" (individual-focused) and "landscape" (issue-focused) portrayals. Trauma voyeurism fixates on the specific victim as a spectacle, whereas justice-oriented coverage addresses systemic conditions. The lines the Grio draws can help us distinguish between wanting to capture the lived realities of people with the intention to bring awareness to those experiences in order to bring some form of change and the exploitation of those lived experiences that often lead to desensitization. Justice-oriented documentation respects the victim's right not to be cast as a perpetual spectacle; exploitation, by contrast, treats trauma as entertainment.</p>
+        <p class="prose">For example, sharing obscene or gruesome images involving children, especially if the child is identifiable, only compounds harm. Ganesan adds a critical racial dimension: research shows Black children as young as ten are perceived as less innocent and more fit for adult consequences, meaning they are denied the protective framing afforded to white children when their images circulate as trauma porn. If a child is present and identifiable, sharing the images without protection qualifies as trauma porn.</p>
+        <p class="prose">Content depicting sexual assault and circulating it as "news" or content only re-traumatizes the victim and may even be consumed by individuals who sensationalize this kind of violence. If the content shows someone being sexually violated and it is shared without consent or trigger warnings, it is trauma porn. Justice requires consent, anonymity where requested, and centering survivors' needs, not viral metrics.</p>
+        <p class="prose">Content that reduces a person's most vulnerable or tragic moment into a meme, GIF, or punchline disconnects people from the human behind the clip. If the content captures a moment you wouldn't want shared about your own loved one, sharing it qualifies as trauma porn. Historically, trauma porn disproportionately targets Black and brown bodies being "maimed, murdered, abused, or exploited". This normalizes violence against marginalized communities, it reduces the severity of the occurrence by making it just another in a sea of violence.</p>
+        <p class="prose">As Ganesan notes, constant exposure to such depictions leaves many Black viewers with PTSD symptoms, increased fear, and hypervigilance. Yet as Shea Martin argues in the same article, "Relying on the consumption of trauma to evoke empathy is not sustainable for our work toward liberation." True justice interrupts that normalization by refusing to participate in the endless replay of Black suffering without accountability. If the content exploits a historically oppressed group for viewer fascination rather than dignity or justice, it qualifies.</p>
+        <p class="prose">Finally, not allowing the audience to either opt in or out of consuming the content (lack of trigger warning, having a graphic thumbnail, or including a video without warning) has the potential of traumatizing the audience and triggering survivors. Ganesan asserts a fundamental right that is often overlooked: "the Black community has the right to scroll without seeing images of death and suffering." There is a more ethical way of educating and bringing awareness that does not require denying viewers the choice to avoid the graphic content.</p>
+        <p class="prose">Darryl Lorenzo Wellington places responsibility on consumers: "If you find you regularly look at the exploitation of marginalized groups without wanting to take corrective action... the problem isn't with media. The problem is with you." Unlike trauma porn, which invites passive consumption, ethical engagement requires the harder work of voting, organizing, and sustained conversation. Justice, therefore, is not just about punishing perpetrators — it is also about refusing to turn victims into fodder for public consumption.</p>
     </div>
 </div>
 

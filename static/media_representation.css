@@ -1,0 +1,140 @@
+/* ── Typography ─────────────────────────────────────────────── */
+
+.prose {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.85;
+    max-width: 800px;
+    margin-bottom: 1.25rem;
+}
+
+.section-heading {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: #1a1a1a;
+    margin-bottom: 1.25rem;
+}
+
+.section-sub {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.plot-title {
+    font-size: 1rem;
+    font-weight: normal;
+    color: #555;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.4rem;
+}
+
+.map-desc {
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+    font-style: italic;
+}
+
+/* ── Filter form ─────────────────────────────────────────────── */
+
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    align-items: flex-end;
+    padding: 1.5rem;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 2.5rem;
+}
+
+.filter-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: #555;
+    letter-spacing: 0.03em;
+}
+
+.filter-form select,
+.filter-form input[type="date"] {
+    font-size: 0.95rem;
+    color: #1a1a1a;
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    padding: 0.4rem 0.6rem;
+    outline: none;
+}
+
+.filter-form select:focus,
+.filter-form input[type="date"]:focus {
+    border-color: #aaa;
+}
+
+.filter-form button {
+    font-size: 0.95rem;
+    color: #f9f9f9;
+    background: #1a1a1a;
+    border: none;
+    padding: 0.45rem 1.25rem;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+}
+
+.filter-form button:hover {
+    background: #444;
+}
+
+/* ── Plots grid ──────────────────────────────────────────────── */
+
+.plots-section {
+    margin: 0 calc(-50vw + 50%);
+    padding: 0 2rem;
+}
+
+.plots-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.plot-block .map-wrap {
+    height: 420px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.plot-block .map-wrap > div,
+.plot-block .map-wrap iframe {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ── How to interact callout ─────────────────────────────────── */
+
+.how-to-interact {
+    max-width: 800px;
+    margin-bottom: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: #f9f9f9;
+    border-left: 3px solid #ccc;
+}
+
+.how-to-interact .section-sub {
+    margin-top: 0;
+}
+
+/* ── Limitations section ─────────────────────────────────────── */
+
+.limitations {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e0e0e0;
+}
