@@ -193,9 +193,9 @@
 .lean-card.flipped .lean-card-front { display: none; }
 .lean-card.flipped .lean-card-back  { display: block; }
 
-.lean-card.right,
-.lean-card.center,
-.lean-card.left   { border-color: #ccc; }
+.lean-card.right  { border-color: #c0392b; }
+.lean-card.center { border-color: #7d3c98; }
+.lean-card.left   { border-color: #2471a3; }
 
 .lean-card-label {
     font-family: Georgia, serif;
@@ -203,8 +203,11 @@
     font-size: 0.85rem;
     margin-bottom: 0.6rem;
     letter-spacing: 0.02em;
-    color: #333;
 }
+
+.lean-card.right  .lean-card-label { color: #c0392b; }
+.lean-card.center .lean-card-label { color: #7d3c98; }
+.lean-card.left   .lean-card-label { color: #2471a3; }
 
 .card-text {
     font-family: Georgia, serif;
@@ -376,6 +379,16 @@
     padding: 1rem 1.25rem;
     border-left: 3px solid #e0e0e0;
     background: #f9f9f9;
+}
+
+.page-toc-title {
+    font-family: Georgia, serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #999;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
 }
 
 .page-toc a {
