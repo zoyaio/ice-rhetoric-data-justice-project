@@ -215,6 +215,16 @@
 .lean-card.center .lean-card-label { color: #7d3c98; }
 .lean-card.left   .lean-card-label { color: #2471a3; }
 
+.card-source-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.card-source-link:hover {
+    opacity: 0.75;
+}
+
 .card-text {
     font-family: Georgia, serif;
     font-size: 0.88rem;
@@ -311,6 +321,19 @@
     border-color: #aaa;
 }
 
+.justice-toggle-btn {
+    background: #2a7a2a;
+    color: #fff;
+    border-color: #2a7a2a;
+    font-weight: bold;
+    letter-spacing: 0.03em;
+}
+
+.justice-toggle-btn:hover {
+    background: #1e5c1e;
+    border-color: #1e5c1e;
+}
+
 .example-content {
     display: none;
     padding: 1rem;
@@ -333,9 +356,13 @@
     cursor: pointer;
     width: 100%;
     margin-bottom: 1.25rem;
+    opacity: 0.5;
 }
 
-.detailed-btn:hover { background: #444; }
+.detailed-btn:hover {
+    background: #444;
+    opacity: 0.7;
+}
 
 /* ── Modal ──────────────────────────────────────────────────── */
 
@@ -429,4 +456,107 @@
     background: #f9f9f9;
     margin-bottom: 1.25rem;
     max-width: 800px;
+}
+
+/* ── Concept column image ───────────────────────────────────── */
+
+.concept-img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* ── Justice-oriented expanded section ──────────────────────── */
+
+.justice-examples {
+    display: none;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+    grid-column: 1 / -1;
+}
+
+.justice-examples.open { display: block; }
+
+.justice-example-entry {
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.justice-example-entry:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.justice-entry-heading {
+    font-family: Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+}
+
+.justice-entry-meta {
+    font-family: Georgia, serif;
+    font-size: 0.82rem;
+    color: #999;
+    letter-spacing: 0.04em;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.justice-entry-link {
+    font-family: Georgia, serif;
+    font-size: 0.88rem;
+    color: #2a7a2a;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 1.25rem;
+}
+
+.justice-entry-link:hover { text-decoration: underline; }
+
+/* Flippable justice card */
+
+.justice-card {
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.25s ease;
+    transform-origin: center;
+    background: #fff;
+    max-width: 480px;
+    margin-top: 0.5rem;
+}
+
+.justice-card.folding {
+    transform: scaleX(0);
+}
+
+.justice-card-front,
+.justice-card-back {
+    width: 100%;
+}
+
+.justice-card-back {
+    display: none;
+    padding: 1.25rem 1.5rem;
+    min-height: 120px;
+}
+
+.justice-card.flipped .justice-card-front { display: none; }
+.justice-card.flipped .justice-card-back  { display: block; }
+
+
+.justice-card-front .lean-flip-hint {
+    display: block;
+    padding: 0.4rem 1rem;
+    background: #fafafa;
+    border-top: 1px solid #e0e0e0;
 }

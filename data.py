@@ -41,9 +41,16 @@ def load_media_analysis() -> dict:
         rows = group.to_dict("records")
         result[city] = {
             "desc": rows[0]["city_desc"],
-            "cards": [{"lean": r["lean"], "sources": r["sources"],
-                       "short_text": r["short_text"], "long_text": r["long_text"]}
-                      for r in rows],
+            "cards": [{
+                        "lean": r["lean"],
+                        "sources": r["sources"],
+                        "source1": r["sources"].split(" & ")[0],
+                        "source2": r["sources"].split(" & ")[1] if " & " in r["sources"] else "",
+                        "url1": r.get("url1", "") if pd.notna(r.get("url1", "")) else "",
+                        "url2": r.get("url2", "") if pd.notna(r.get("url2", "")) else "",
+                        "short_text": r["short_text"],
+                        "long_text": r["long_text"],
+                      } for r in rows],
         }
     return result
 

@@ -43,3 +43,60 @@ h1 {
     border-bottom: 1px solid #e0e0e0;
     padding-bottom: 0.75rem;
 }
+
+/* ── Home page ──────────────────────────────────────────────── */
+
+.home-intro {
+    color: #555;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.guiding-question {
+    max-width: 720px;
+    margin: 3rem auto 0;
+    padding: 1.5rem 2rem;
+    border-left: 4px solid #1a1a1a;
+    background: #f0f0f0;
+}
+
+.guiding-question-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 0.75rem;
+}
+
+.guiding-question-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #1a1a1a;
+    line-height: 1.85;
+}
+
+.home-sources {
+    max-width: 720px;
+    margin: 3rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.home-sources-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 0.75rem;
+}
+
+.home-sources p {
+    font-size: 0.88rem;
+    color: #777;
+    line-height: 1.7;
+}

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
 {% block title %}Media Depictions{% endblock %}
 
@@ -30,6 +30,12 @@
     btn.textContent = open ? 'Click to see example ▴' : 'Click to see example ▾';
   }
 
+  function toggleJusticeSection(btn) {
+    var section = document.getElementById('justice-examples-section');
+    var open = section.classList.toggle('open');
+    btn.textContent = open ? 'Hide what this looks like ▴' : 'Show me what this looks like... ▾';
+  }
+
   function openDetailModal() {
     document.getElementById('detail-modal').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -44,11 +50,7 @@
 </script>
 
 <h1>Media Depiction: how does media chose to tell stories?</h1>
-<p class="prose intro">In the previous section, we looked at whose stories media choses to tell. Now, within that already
-    limited scope of people, this section will analyze how media depicts their life stories. Namely, we find a strong
-    general media focus on including damage-based content. Within this framework, we then look at the differences in
-    framing and reporting between media outlets with different leans and find that both the left and the right use
-    sensationalized or incredibly emotional formats to tell these damage-based stories.
+<p class="prose intro">In the previous section, we looked at whose stories the media chooses to tell. Now, within that already limited scope, this section analyzes how the media chooses to depict Latino life stories and how that depiction normalizes a particular understanding of their positionality. Namely, we find a strong general media focus on damage-based content. This raises an important question about where the thin line is between reporting on something responsibly and giving in to trauma voyeurism. When coverage builds a case for the very institutions that reproduce our hierarchical world, when it paints communities as objects of pity or spectacles to be watched rather than people with agency, the media reveals its structural subordination to what Hall calls the "primary definers": those in power who control the means of mental production. Within this framework, we then look at the differences in framing and reporting between media outlets with different leans and find that both the left and the right use sensationalized, highly emotional formats to tell these damage-based stories.
 </p>
 
 <nav class="page-toc">
@@ -60,7 +62,8 @@
 
 <!-- ── Media Desensitization ───────────────────────────────── -->
 <h2 class="section-heading" id="section-desensitization">Saturation of damage-based content, leading to desensitization</h2>
-<p> Let's begin with some definitions of two different types of media coverage for describing suffering and loss in the world. </p>
+<h3 class="section-sub">Consider what news looks like now. What could it look like? </h3>
+<p class="prose">Media turns events into public idioms and in this case the type of coverage produces a shared way of making sense of Latino and immigrant loss. Which lens is being handed to you?</p>
 <div class="desensitization-section">
 
     <!-- Two-column concept comparison -->
@@ -73,7 +76,10 @@
             </p>
             <button class="example-btn" onclick="toggleExample(this)">Click to see example ▾</button>
             <div class="example-content">
-                <p class="card-text">[Placeholder: example of trauma porn content — to be filled in.]</p>
+                <img src="{{ url_for('static', filename='images/unfaced1.png') }}" class="concept-img" alt="">
+                <p class="card-text">There's no example here. Not because one doesn't exist but because showing it would indicate complicity in the spectacle I'm asking you to question. <br> Instead of an example, look at the structure that made you want to click in the first place. Trauma gets packaged, priced, and served to you like everything else, like a commodity. Someone controls the means of mental production (the editors, the algorithms, the attention economy) and they have learned that damage sells.
+</p>
+                <img src="{{ url_for('static', filename='images/unfaced2.png') }}" class="concept-img" alt="">
             </div>
         </div>
         <div class="concept-col">
@@ -81,23 +87,95 @@
             <p class="concept-filler">
                 "Justice-oriented documentation respects the victim's right not to be cast as a perpetual spectacle; exploitation, by contrast, treats trauma as entertainment."
             </p>
-            <button class="example-btn" onclick="toggleExample(this)">Click to see example ▾</button>
-            <div class="example-content">
-                <p class="card-text">[Placeholder: example of justice-oriented coverage — to be filled in.]</p>
-            </div>
+            <button class="example-btn justice-toggle-btn" onclick="toggleJusticeSection(this)">Show me what this looks like... ▾</button>
         </div>
     </div>
 
+    <!-- Justice-oriented expanded section -->
+    <div class="justice-examples" id="justice-examples-section">
+
+        <div class="justice-example-entry">
+            <h4 class="justice-entry-heading">Call Me Libertad: Poems Between Borders</h4>
+            <p class="justice-entry-meta">Poetry and Art Anthology</p>
+            <p class="prose">This multilingual book combines the voices of people in immigration detention with their family members and allies to give insight into immigration detention, positioning them as experts in their own experiences. It grew out of a writing workshop taught by Alicia Partnoy for the organization CIVIC (Community Initiatives for Visiting Immigrants in Confinement). The book is an effort to liberate our political imagination so that we may build together a country without immigration detention.</p>
+            <a class="justice-entry-link" href="https://www.freedomforimmigrants.org/our-vision" target="_blank">freedomforimmigrants.org/our-vision</a>
+            <div class="justice-card" onclick="flipCard(this)">
+                <div class="justice-card-front">
+                    <img src="{{ url_for('static', filename='images/JOC1.png') }}" class="concept-img" alt="" style="margin-bottom:0">
+                    <span class="lean-flip-hint">click to read more →</span>
+                </div>
+                <div class="justice-card-back">
+                    <p class="card-text">"This book has an urgent message. We are calling for freedom, for an end to systems of isolation, because we know that the problem before us—the U.S. immigration detention system—affects us all. We know that it is tearing at the fabric of our nation. As the final poem in our anthology reads, 'Is this your problem or mine? Your story or mine? Your grief or mine? Yes.'"</p>
+                    <span class="lean-flip-hint">click to go back</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="justice-example-entry">
+            <h4 class="justice-entry-heading">Transcending Borders: The Central Valley Writers' Premio Literario</h4>
+            <p class="justice-entry-meta">Central Valley, California &nbsp;&middot;&nbsp; Writing Award &amp; Anthology Publication</p>
+            <p class="prose">Arte Américas and the Central Valley Chicana and Chicano Writers Collective initiated this Premio Literario to empower youth (ages 18–24) to share their immigrant experiences through writing. The program aims to counter false narratives and overcome fear and anxiety in the current political climate by highlighting stories of joy, hope, fear, laughter, and persistence. The collective writes because they could not find books with characters who looked like them as children, and they now make their stories available so readers of all ages can discover stories with characters they can relate to.</p>
+            <a class="justice-entry-link" href="https://arteamericas.org/mission/" target="_blank">arteamericas.org/mission</a>
+            <div class="justice-card" onclick="flipCard(this)">
+                <div class="justice-card-front">
+                    <img src="{{ url_for('static', filename='images/JOC2.png') }}" class="concept-img" alt="" style="margin-bottom:0">
+                    <span class="lean-flip-hint">click to read more →</span>
+                </div>
+                <div class="justice-card-back">
+                    <p class="card-text">"We are facing difficult times, as a new administration challenges the very existence of a diverse community of immigrants. While redadas, deportation roundups, have brought terror and insecurity to our immigrant communities, we are reminded of the importance of telling our own stories. Documenting our stories is a vital role for us as a community, especially when our very existence is being questioned. … We believe humans are story-telling beings, and from childhood we have hungered for stories just as we hungered for food. These are some of the stories that have been untold. We see these young writers, like ourselves, helping to address the shortage of stories about our immigrant experiences, an essential part of the American story. When we share the stories of our lives we become writers. If we are silent our stories won't be told, and they deserve to be told and shared with others."</p>
+                    <span class="lean-flip-hint">click to go back</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="justice-example-entry">
+            <h4 class="justice-entry-heading">Boyle Heights Beat / LAist</h4>
+            <p class="justice-entry-meta">East Los Angeles, California &nbsp;&middot;&nbsp; Community-Funded Nonprofit News</p>
+            <p class="prose">Boyle Heights Beat is a community-funded, youth-focused nonprofit news outlet serving the East Los Angeles neighborhood. As a publication of the USC Annenberg School of Journalism, it trains local youth to report on stories that matter to their community, stories often overlooked by mainstream media. LAist amplifies this work as part of its commitment to local journalism.</p>
+            <p class="prose"><em>Example: East LA Healing Circle: Turning ICE Traumatic Experiences into Healing.</em> This story centers how a community responded: women and children gathering for a healing circle, organizing patrols, tracking ICE activity, and offering ancestral medicine and spiritual support. The coverage does not linger on spectacle. Instead, it documents resilience, mutual aid, and the work of healing.</p>
+            <a class="justice-entry-link" href="https://laist.com/news/los-angeles-activities/ice-raids-have-not-only-inspired-activism-but-art" target="_blank">laist.com</a>
+            <div class="justice-card" onclick="flipCard(this)">
+                <div class="justice-card-front">
+                    <img src="{{ url_for('static', filename='images/JOC3.png') }}" class="concept-img" alt="" style="margin-bottom:0">
+                    <span class="lean-flip-hint">click to read more →</span>
+                </div>
+                <div class="justice-card-back">
+                    <p class="card-text">"Seeing a video my homie sent me being roughed up by police and confronting the horror at the hotels where ICE agents sleep was starting to tear away at my nervous system and spirit," she said. "Being in community allowed me to reset and feel what I've been bottling up and compartmentalizing inside. Hearing other testimonies gave me permission to share a little bit about the work I've been doing."<br><br>"I called on the ancestors I felt close to the day before to be my navigation guide and guide my route. I felt a strong desire to play music that had the same Indigenous spirit, so I pulled over and tried to connect to Bluetooth. Out of nowhere, this beautiful danza Azteca song came on. At that moment, I didn't feel alone. I rolled down the windows, blasted the music and started driving."<br><br>— Kamren Curiel / Boyle Heights Beat (via LAist)</p>
+                    <span class="lean-flip-hint">click to go back</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="justice-example-entry">
+            <h4 class="justice-entry-heading">California Community Foundation (CCF) / LA Plaza Cultura y Artes / Japanese American National Museum</h4>
+            <p class="justice-entry-meta">Los Angeles, California &nbsp;&middot;&nbsp; Public Art Campaign &amp; Community Solidarity Project</p>
+            <p class="prose">The "Am I Next?" campaign projects 20 by 30-foot portraits of Angelenos onto buildings across downtown LA to confront ICE raids and attacks on civil liberties. The campaign draws direct parallels between current immigration enforcement and the WWII incarceration of Japanese Americans, harnessing art as resistance and coalition-building across communities.</p>
+            <p class="prose"><em>Example of Justice-Oriented Coverage:</em> Instead of turning immigrant suffering into spectacle, this campaign centers solidarity, historical memory, and collective action.</p>
+            <a class="justice-entry-link" href="https://www.aminextla.org" target="_blank">aminextla.org</a>
+            <div class="justice-card" onclick="flipCard(this)">
+                <div class="justice-card-front">
+                    <img src="{{ url_for('static', filename='images/JOC4.png') }}" class="concept-img" alt="" style="margin-bottom:0">
+                    <span class="lean-flip-hint">click to read more →</span>
+                </div>
+                <div class="justice-card-back">
+                    <p class="card-text">"This is a call to action. 'Am I Next?' is more than a question. It is a declaration of courage, a stand for justice, because until justice returns, none of us is free, none of us is safe." — Miguel A. Santana, CCF President and CEO</p>
+                    <span class="lean-flip-hint">click to go back</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <!-- Full-width actions -->
-    <button class="detailed-btn" onclick="openDetailModal()">Click here to read a more detailed explanation</button>
+    <button class="detailed-btn" onclick="openDetailModal()">Click here to read a detailed explanation of these definitions! </button>
     <p class="callout-note">See more about how these definitions were made in the source analysis section.</p>
 
     <!-- Data Analysis -->
     <h3 class="subsection-heading">Data Analysis</h3>
 
     <!-- Transition text placeholder -->
-    <p class="prose concept-filler-block">
-        [Placeholder: transition text — to be filled in.]
+    <p class="prose">
+        Trauma porn isn't just a stylistic choice. It's a pattern. And patterns live in data. To understand how media legitimizes damage-based depictions of Latinos and how that shapes what we collectively accept as normal, we turned to the platforms to see the extent of this pattern. 
     </p>
 
     <!-- Bar chart -->
@@ -106,13 +184,15 @@
          class="section-chart">
 
     <!-- Analysis text + callout -->
-    <p class="prose concept-filler-block">
-        [Placeholder: analysis of the bar chart — to be filled in.]
+    <p class="prose">
+        Across all search terms, nearly one in three of the most-viewed posts about ICE contained what we classify as trauma porn, content that reduces Latino and immigrant communities to spectacles of suffering rather than subjects of their own stories. Searches like "ICE Minnesota" produced a higher proportion of damage-based content, often tied to specific high-profile enforcement events that went viral. Not because Minnesota is worse but instead because concentrated attention decided it was. Broader terms like "ICE Activity" showed more mixed results, including some posts documenting community resistance. It is important to mention that even posts marked "No" for trauma porn were often deeply dehumanizing, using language like "illegal aliens", "criminal illegals", or "freeloaders" to strip personhood without showing a single act of violence.  
+
     </p>
     <p class="callout-note">See more about our collection methods in the data collection section below.</p>
 
     <!-- Source Analysis -->
     <h3 class="subsection-heading">Source Analysis</h3>
+    <p class="prose">Here is a breakdown of each source used to create our definitions of trauma porn and justice-oriented coverage.</p>
     <div class="sources-table-wrap">
         <table class="sources-table">
             <thead>
@@ -212,7 +292,9 @@
         {% for card in analysis.cards %}
         <div class="lean-card {{ card.lean }}" onclick="flipCard(this)">
             <div class="lean-card-front">
-                <div class="lean-card-label">{{ card.lean | title }} Leaning: {{ card.sources }}</div>
+                <div class="lean-card-label">{{ card.lean | title }} Leaning:
+                    {% if card.url1 %}<a href="{{ card.url1 }}" target="_blank" class="card-source-link">{{ card.source1 }}</a>{% else %}{{ card.source1 }}{% endif %}{% if card.source2 %} &amp; {% if card.url2 %}<a href="{{ card.url2 }}" target="_blank" class="card-source-link">{{ card.source2 }}</a>{% else %}{{ card.source2 }}{% endif %}{% endif %}
+                </div>
                 <p class="card-text">{{ card.short_text }}</p>
                 <span class="lean-flip-hint">click to read more →</span>
             </div>
@@ -230,7 +312,10 @@
 <div class="city-section">
     <h2 class="section-heading" id="section-data-collection">Data collection and methods</h2>
     <p class="prose">
-        [Placeholder: data collection description — to be filled in.]
+    
+    For both Twitter and Instagram, we created a new account and manually searched for the top 20 most-viewed posts containing media for each search term. We then hand-labeled each post based on peer-reviewed definitions of trauma porn, looking for violent imagery, sensationalized framing, and the reduction of people to objects of pity or spectacle. 
+For Limitations, the sample size is quite small and we only looked at Instagram and Twitter. Platform restrictions mean our Instagram sample is smaller and less systematic. Twitter users skew young, male, and millennial so our data over-represents certain voices and under-represents others. Twitter is not a perfect representative sample of all media consumers but news does not exist in a vacuum. Media produces social reality in ways that benefit those in charge. Their domination produces a rationale for institutions that protect their way of life. Which is why we believe that Twitter was useful. As we laid out at the start, Hall's hierarchy of credibility means official voices (police, media figures, politicians) are more likely to be seen as legitimate. They set the agenda. Twitter doesn't distort that: it reveals it. So despite its biases, Twitter shows us how primary definers work. Trauma porn performs well there not because of who uses the platform, but because the hierarchy of credibility has already decided that damage-based stories are worth telling. 
+
     </p>
 </div>
 
