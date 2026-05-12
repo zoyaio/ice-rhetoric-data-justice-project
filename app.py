@@ -196,7 +196,6 @@ def narratives_left_out():
         'Long Beach':    (33.7701, -118.1937),
         'Sacramento':    (38.5816, -121.4944),
         'Los Angeles':   (34.0522, -118.2437),
-        'Fresno':        (36.7378, -119.7871),
     }
     fig.add_trace(go.Scattergeo(
         lat=[c[0] for c in cities.values()],
